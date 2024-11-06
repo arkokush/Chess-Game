@@ -186,20 +186,34 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
         return boxes;
     }
 
-    private boolean placePiece()
-    {
+    private boolean placePiece() {
         boolean piecePlaced = false;
         Iterator<ChessPiece> iterator = pieces.iterator();
-        while (iterator.hasNext())
-        {
+        while (iterator.hasNext()) {
             ChessPiece piece = iterator.next();
-            if (piece.isPickedUp())
-            {
-                piece.move(xS, yS,pieces);
-              
+            int x1 = piece.getX();
+            int y1 = piece.getY();
+            if (piece.isPickedUp()) {
+                // Check if the new position captures an opponent's piece
+                iterator = pieces.iterator();
+                while (iterator.hasNext()) {
+                    ChessPiece target = iterator.next();
+                    if (target.getX() == xS && target.getY() == yS && target.getColor() != piece.getColor()) {
+                        iterator.remove(); // Remove the captured piece
+                        break;
+                    }
+                }
+                piece.move(xS, yS, pieces);
+                piece.setPickedUp(false);
                 System.out.println(piece + " was placed down");
                 piecePlaced = true;
+
+
             }
+            if(piece.getX()==x1&&piece.getY()==y1)
+                piecePlaced = false;
+
+
         }
         return piecePlaced;
     }
