@@ -30,7 +30,7 @@ public class ChessPiece
     public void move(int x, int y, ArrayList<ChessPiece> pieces)
     {
 
-        if (this.canMove(x, y))
+        if (this.canMove(x, y,pieces))
         {
             for (ChessPiece p : pieces)
                 if (color != p.getColor() && p.getX() == x && p.getY() == y)
@@ -76,7 +76,7 @@ public class ChessPiece
         return false;
     }
 
-    public boolean canMove(int a, int b)
+    public boolean canMove(int a, int b, ArrayList<ChessPiece> pieces)
     {
         return false;
     }

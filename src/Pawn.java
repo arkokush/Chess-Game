@@ -22,7 +22,7 @@ public class Pawn extends ChessPiece
     @Override
     public void move(int x, int y, ArrayList<ChessPiece> pieces)
     {
-        if (this.canMove(x, y))
+        if (this.canMove(x, y, pieces))
         {
             this.x = x;
             this.y = y;
@@ -54,7 +54,7 @@ public class Pawn extends ChessPiece
     }
 
     @Override
-    public boolean canMove(int a, int b)
+    public boolean canMove(int a, int b, ArrayList<ChessPiece> pieces)
     {
         switch (color)
         {

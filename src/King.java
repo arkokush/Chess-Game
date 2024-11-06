@@ -21,7 +21,7 @@ public class King extends ChessPiece
 
   
     @Override
-    public boolean canMove(int a, int b)
+    public boolean canMove(int a, int b, ArrayList<ChessPiece> pieces)
     {
         return (a == x + 75 && b == y) || (a == x - 75 && b == y) || (b == y + 75 && a == x) || (b == y - 75 && a == x)
                 || (b == y + 75 && (a == x + 75 || a == x - 75)) || (b == y - 75 && (a == x + 75 || a == x - 75));
