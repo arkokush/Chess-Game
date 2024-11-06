@@ -1,8 +1,8 @@
-import javax.imageio.ImageIO;
+import javax.imageio.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.awt.image.*;
+import java.io.*;
+import java.util.*;
 
 //Arkady Kokush
 //Date: Nov 5, 2024
@@ -16,12 +16,29 @@ public class Rook extends ChessPiece {
         this.color = color;
     }
 
+    @Override
+    public void move(int x, int y, ArrayList<ChessPiece> pieces) {
+        if (this.canMove(x, y, pieces) || this.canTake(getPieceAt(x, y, pieces))) {
+            this.x = x;
+            this.y = y;
+            didMove = true;
+        }
+    }
+
+    @Override
+    public boolean canTake(ChessPiece piece) {
+
+        return piece.getX() == x || piece.getY() == y;
+    }
 
     @Override
     public boolean canMove(int a, int b, ArrayList<ChessPiece> pieces) {
         boolean canMove = b == y || a == x;
+        ChessPiece targetPiece = getPieceAt(a, b, pieces);
 
-
+        if (targetPiece != null && canTake(targetPiece)) {
+            canMove = true;
+        }
         for (ChessPiece piece : pieces) {
             if (a > x)
                 for (int i = 1; i * 75 + x < a; i++)
@@ -49,8 +66,11 @@ public class Rook extends ChessPiece {
                         break;
                     }
         }
+
+
         return canMove;
     }
+
 
     @Override
     public void draw(Graphics2D g2) {
