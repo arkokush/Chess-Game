@@ -64,15 +64,11 @@ public class ChessPiece
         this.pickedUp = pickedUp;
     }
 
-    public void takePiece(ChessPiece piece)
-    {
-        if (piece.getX() == x && piece.getY() == y && this.canTake(piece))
-            piece = null;
 
-    }
 
     public boolean canTake(ChessPiece piece)
     {
+
         return false;
     }
 
