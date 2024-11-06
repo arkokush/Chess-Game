@@ -42,9 +42,9 @@ public class Rook extends ChessPiece
             e.printStackTrace();
         }
         if (color == WHITE)
-            g2.drawImage(rookW, x + 2, y + 2, 70, 80, null);
+            g2.drawImage(rookW, x + 7, y + 2, 60, 70, null);
         if (color == BLACK)
-            g2.drawImage(rookB, x + 2, y + 2, 70, 80, null);
+            g2.drawImage(rookB, x + 7, y + 2, 60, 70, null);
 
     }
 
@@ -61,9 +61,9 @@ public class Rook extends ChessPiece
             e.printStackTrace();
         }
         if (color == WHITE)
-            g2.drawImage(rookW, x + 2, y + 2, 70, 80, null);
+            g2.drawImage(rookW, x + 7, y + 2, 60, 70, null);
         if (color == BLACK)
-            g2.drawImage(rookB, x + 2, y + 2, 70, 80, null);
+            g2.drawImage(rookB, x + 7, y + 2, 60, 70, null);
 
     }
 }

@@ -43,9 +43,9 @@ public class Queen extends ChessPiece
             e.printStackTrace();
         }
         if (color == WHITE)
-            g2.drawImage(queenW, x + 2, y, 70, 80, null);
+            g2.drawImage(queenW, x + 2, y+2, 70, 70, null);
         if (color == BLACK)
-            g2.drawImage(queenB, x + 2, y, 70, 80, null);
+            g2.drawImage(queenB, x + 2, y+2, 70, 70, null);
 
     }
 
@@ -62,9 +62,9 @@ public class Queen extends ChessPiece
             e.printStackTrace();
         }
         if (color == WHITE)
-            g2.drawImage(queenW, x + 2, y, 70, 80, null);
+            g2.drawImage(queenW, x + 2, y+2, 70, 70, null);
         if (color == BLACK)
-            g2.drawImage(queenB, x + 2, y, 70, 80, null);
+            g2.drawImage(queenB, x + 2, y+2, 70, 70, null);
 
     }
 }

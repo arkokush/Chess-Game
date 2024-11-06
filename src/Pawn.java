@@ -87,9 +87,9 @@ public class Pawn extends ChessPiece
             e.printStackTrace();
         }
         if (color == WHITE)
-            g2.drawImage(pawnW, x + 13, y + 2, 50, 70, null);
+            g2.drawImage(pawnW, x + 13, y + 7, 50, 60, null);
         if (color == BLACK)
-            g2.drawImage(pawnB, x + 13, y + 2, 50, 70, null);
+            g2.drawImage(pawnB, x + 13, y + 7, 50, 60, null);
 
     }
 
@@ -106,9 +106,9 @@ public class Pawn extends ChessPiece
             e.printStackTrace();
         }
         if (color == WHITE)
-            g2.drawImage(pawnW, x + 13, y + 2, 50, 70, null);
+            g2.drawImage(pawnW, x + 13, y + 7, 50, 60, null);
         if (color == BLACK)
-            g2.drawImage(pawnB, x + 13, y + 2, 50, 70, null);
+            g2.drawImage(pawnB, x + 13, y + 7, 50, 60, null);
 
     }
 }

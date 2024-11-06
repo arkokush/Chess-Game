@@ -41,9 +41,9 @@ public class Knight extends ChessPiece
             e.printStackTrace();
         }
         if (color == WHITE)
-            g2.drawImage(knightW, x + 2, y, 70, 80, null);
+            g2.drawImage(knightW, x + 2, y+2, 70, 70, null);
         if (color == BLACK)
-            g2.drawImage(knightB, x + 2, y, 70, 80, null);
+            g2.drawImage(knightB, x + 2, y+2, 70, 70, null);
 
     }
 
@@ -60,8 +60,8 @@ public class Knight extends ChessPiece
             e.printStackTrace();
         }
         if (color == WHITE)
-            g2.drawImage(knightW, x + 2, y, 70, 80, null);
+            g2.drawImage(knightW, x + 2, y+2, 70, 70, null);
         if (color == BLACK)
-            g2.drawImage(knightB, x + 2, y, 70, 80, null);
+            g2.drawImage(knightB, x + 2, y+2, 70, 70, null);
     }
 }
