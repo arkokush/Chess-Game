@@ -42,7 +42,14 @@ public class ChessPiece
         }
         pickedUp=false;
 
+    }public ChessPiece getPieceAt(int x, int y, ArrayList<ChessPiece> pieces) {
+    for (ChessPiece piece : pieces) {
+        if (piece.getX() == x && piece.getY() == y) {
+            return piece;
+        }
     }
+    return null;
+}
 
     public int getColor()
     {

@@ -22,6 +22,106 @@ import javax.swing.Timer;
 
 public class ChessGUI extends JPanel implements KeyListener, MouseListener, MouseMotionListener
 {
+    public int getColorTurn()
+    {
+        return colorTurn;
+    }
+
+    public void setColorTurn(int colorTurn)
+    {
+        this.colorTurn = colorTurn;
+    }
+
+    public int getxS()
+    {
+        return xS;
+    }
+
+    public void setxS(int xS)
+    {
+        this.xS = xS;
+    }
+
+    public int getyS()
+    {
+        return yS;
+    }
+
+    public void setyS(int yS)
+    {
+        this.yS = yS;
+    }
+
+    public int getCursorX()
+    {
+        return cursorX;
+    }
+
+    public void setCursorX(int cursorX)
+    {
+        this.cursorX = cursorX;
+    }
+
+    public int getCursorY()
+    {
+        return cursorY;
+    }
+
+    public void setCursorY(int cursorY)
+    {
+        this.cursorY = cursorY;
+    }
+
+    public int getScreen()
+    {
+        return screen;
+    }
+
+    public void setScreen(int screen)
+    {
+        this.screen = screen;
+    }
+
+    public ChessBoard getBoard()
+    {
+        return board;
+    }
+
+    public void setBoard(ChessBoard board)
+    {
+        this.board = board;
+    }
+
+    public ArrayList<ChessPiece> getPieces()
+    {
+        return pieces;
+    }
+
+    public void setPieces(ArrayList<ChessPiece> pieces)
+    {
+        this.pieces = pieces;
+    }
+
+    public ArrayList<ChessPiece> getpBlack()
+    {
+        return pBlack;
+    }
+
+    public void setpBlack(ArrayList<ChessPiece> pBlack)
+    {
+        this.pBlack = pBlack;
+    }
+
+    public ArrayList<ChessPiece> getpWhite()
+    {
+        return pWhite;
+    }
+
+    public void setpWhite(ArrayList<ChessPiece> pWhite)
+    {
+        this.pWhite = pWhite;
+    }
+
     public static final int PANEL_WIDTH = 600;
     public static final int PANEL_HEIGHT = 600;
     public static final int GAME_OVER = 1;
@@ -173,7 +273,7 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
         pickUpPiece(mouse, pHitboxes);
     }
 
-    private ArrayList<Rectangle> createBoardRectangles()
+    public ArrayList<Rectangle> createBoardRectangles()
     {
         ArrayList<Rectangle> boxes = new ArrayList<>();
         for (int w = 0; w < 8; w++)
@@ -186,39 +286,60 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
         return boxes;
     }
 
-    private boolean placePiece() {
+    /*public boolean placePiece() {
         boolean piecePlaced = false;
-        Iterator<ChessPiece> iterator = pieces.iterator();
-        while (iterator.hasNext()) {
-            ChessPiece piece = iterator.next();
+
+        for (ChessPiece piece : pieces) {
             int x1 = piece.getX();
             int y1 = piece.getY();
             if (piece.isPickedUp()) {
+                piece.move(xS, yS, pieces);
+                for (int i = pieces.size() - 1; i >= 0; i--) {
+                    if (pieces.indexOf(piece) != i) {
+                        ChessPiece target = pieces.get(i);
+                        if (target.getX() == xS && target.getY() == yS && target.getColor() != piece.getColor()) {
+                            pieces.remove(i); // Remove the captured piece
+                            break;
+                        }
+                    }
+                    piece.setPickedUp(false);
+                }
+
+
+                System.out.println(piece + " was placed down");
+                piecePlaced = true;
+            }
+        }
+        return piecePlaced;
+    }*/
+    public boolean placePiece() {
+        boolean piecePlaced = false;
+
+        for (int i = pieces.size()-1; i >=0; i--) {
+            ChessPiece piece = pieces.get(i);
+            int x1 = piece.getX();
+            int y1 = piece.getY();
+            if (piece.isPickedUp()) {
+                piece.move(xS, yS, pieces);
                 // Check if the new position captures an opponent's piece
-                iterator = pieces.iterator();
-                while (iterator.hasNext()) {
-                    ChessPiece target = iterator.next();
+                for (int j = pieces.size()-1; j >=0; j--) {
+                    ChessPiece target = pieces.get(j);
                     if (target.getX() == xS && target.getY() == yS && target.getColor() != piece.getColor()) {
-                        iterator.remove(); // Remove the captured piece
+                        pieces.remove(j); // Remove the captured piece
                         break;
                     }
                 }
-                piece.move(xS, yS, pieces);
+
                 piece.setPickedUp(false);
                 System.out.println(piece + " was placed down");
                 piecePlaced = true;
-
-
             }
-            if(piece.getX()==x1&&piece.getY()==y1)
-                piecePlaced = false;
-
 
         }
         return piecePlaced;
     }
 
-    private void pickUpPiece(Rectangle mouse, ArrayList<Rectangle> pHitboxes)
+    public void pickUpPiece(Rectangle mouse, ArrayList<Rectangle> pHitboxes)
     {
         for (Rectangle p : pHitboxes)
         {

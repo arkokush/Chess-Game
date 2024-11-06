@@ -1,8 +1,8 @@
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.ArrayList;
-import javax.imageio.ImageIO;
+import javax.imageio.*;
+import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
+import java.util.*;
 
 public class Pawn extends ChessPiece {
     private BufferedImage pawnW, pawnB;
@@ -25,33 +25,22 @@ public class Pawn extends ChessPiece {
 
     @Override
     public void move(int x, int y, ArrayList<ChessPiece> pieces) {
-        if (this.canMove(x, y, pieces)) {
+        if (this.canMove(x, y, pieces) || this.canTake(getPieceAt(x, y, pieces))) {
             this.x = x;
             this.y = y;
             didMove = true;
         }
-        ChessPiece capturedPiece = null;
-        for (ChessPiece piece : pieces) {
-            if (canTake(piece)&&piece.getX()==x&&piece.getY()==y) {
-                capturedPiece = piece;
-                break;
-            }
-        }
-        if (capturedPiece != null) {
-            pieces.remove(capturedPiece);
-            this.x = capturedPiece.getX();
-            this.y = capturedPiece.getY();
-        }
-        pickedUp = false;
     }
 
     @Override
     public boolean canTake(ChessPiece piece) {
         switch (color) {
             case BLACK:
-                return color != piece.getColor() && piece.getY() == y + 75 && (piece.getX() == x + 75 || piece.getX() == x - 75);
+                return color != piece.getColor() && piece.getY() == y + 75
+                        && (piece.getX() == x + 75 || piece.getX() == x - 75);
             case WHITE:
-                return color != piece.getColor() && piece.getY() == y - 75 && (piece.getX() == x + 75 || piece.getX() == x - 75);
+                return color != piece.getColor() && piece.getY() == y - 75
+                        && (piece.getX() == x + 75 || piece.getX() == x - 75);
         }
         return false;
     }
@@ -59,38 +48,45 @@ public class Pawn extends ChessPiece {
     @Override
     public boolean canMove(int a, int b, ArrayList<ChessPiece> pieces) {
         boolean canMove = false;
+        ChessPiece targetPiece = getPieceAt(a, b, pieces);
 
-        switch (color) {
-            case BLACK:
-                if (didMove) {
-                    canMove = (a == x && b == y + 75);
-                } else {
-                    canMove = (b == y + 150 || b == y + 75) && a == x;
-                    for (ChessPiece piece : pieces) {
-                        if (piece.getY() == y + 75 &&piece.getX() == x) {
-                            canMove = false;
-                            break;
+        if (targetPiece != null && canTake(targetPiece)) {
+            canMove = true;
+        } else {
+            switch (color) {
+                case BLACK:
+                    if (didMove) {
+                        canMove = (a == x && b == y + 75);
+                    } else {
+                        canMove = (b == y + 150 || b == y + 75) && a == x;
+                        for (ChessPiece piece : pieces) {
+                            if (piece.getY() == y + 75 && piece.getX() == x) {
+                                canMove = false;
+                                break;
+                            }
                         }
                     }
-                }
-                break;
-            case WHITE:
-                if (didMove) {
-                    canMove = (b == y - 75 && a == x);
-                } else {
-                    canMove = (b == y - 150 || b == y - 75) && a == x;
-                    for (ChessPiece piece : pieces) {
-                        if (piece.getY() == y - 75 && piece.getX() == x) {
-                            canMove = false;
-                            break;
+                    break;
+                case WHITE:
+                    if (didMove) {
+                        canMove = (b == y - 75 && a == x);
+                    } else {
+                        canMove = (b == y - 150 || b == y - 75) && a == x;
+                        for (ChessPiece piece : pieces) {
+                            if (piece.getY() == y - 75 && piece.getX() == x) {
+                                canMove = false;
+                                break;
+                            }
                         }
                     }
-                }
-                break;
+                    break;
+            }
         }
 
         return canMove;
     }
+
+
 
     @Override
     public void draw(Graphics2D g2) {
