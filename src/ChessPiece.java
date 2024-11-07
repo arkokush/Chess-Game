@@ -25,14 +25,19 @@ public class ChessPiece {
     }
 
     public void move(int x, int y, ArrayList<ChessPiece> pieces) {
-
-        if (this.canMove(x, y, pieces)) {
+        if (this.canMove(x, y, pieces) ) {
             this.x = x;
             this.y = y;
             didMove = true;
         }
-        pickedUp = false;
-
+        for (int j = pieces.size()-1; j >=0; j--) {
+            ChessPiece target = pieces.get(j);
+            if (target.getX() == x && target.getY() == y && target.getColor()
+                    != color) {
+                pieces.remove(j); // Remove the captured piece
+                break;
+            }
+        }
     }
 
     public ChessPiece getPieceAt(int x, int y, ArrayList<ChessPiece> pieces) {

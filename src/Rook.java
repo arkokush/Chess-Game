@@ -17,14 +17,7 @@ public class Rook extends ChessPiece {
                 "/rookB.png" );
     }
 
-    @Override
-    public void move(int x, int y, ArrayList<ChessPiece> pieces) {
-        if (this.canMove(x, y, pieces) || this.canTake(getPieceAt(x, y, pieces))) {
-            this.x = x;
-            this.y = y;
-            didMove = true;
-        }
-    }
+
 
 
     @Override

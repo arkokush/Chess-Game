@@ -300,7 +300,7 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
                 for (int j = pieces.size()-1; j >=0; j--) {
                     ChessPiece target = pieces.get(j);
                     if (target.getX() == xS && target.getY() == yS && target.getColor()
-                            != piece.getColor()&&piece.canMove(xS,yS,pieces)) {
+                            != piece.getColor() && piece.canMove(xS,yS,pieces)) {
                         pieces.remove(j); // Remove the captured piece
                         break;
                     }
