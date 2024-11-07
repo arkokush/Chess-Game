@@ -24,6 +24,14 @@ public class ChessPiece {
         this.blackImage = ImageIO.read(getClass().getResourceAsStream(blackImageLocation));
     }
 
+    public boolean isDidMove() {
+        return didMove;
+    }
+
+    public void setDidMove(boolean didMove) {
+        this.didMove = didMove;
+    }
+
     public void move(int x, int y, ArrayList<ChessPiece> pieces) {
         ChessPiece target = getPieceAt(x, y, pieces);
         if (target == null){

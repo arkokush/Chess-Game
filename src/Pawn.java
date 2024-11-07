@@ -29,6 +29,16 @@ public class Pawn extends ChessPiece {
         return false;
     }
 
+    public boolean canTake(int a, int b) {
+        switch (color) {
+            case BLACK:
+                return b == y + 75 && (a == x + 75 || a == x - 75);
+            case WHITE:
+                return b == y - 75 && (a == x + 75 || a == x - 75);
+        }
+        return false;
+    }
+
     @Override
     public boolean canMove(int a, int b, ArrayList<ChessPiece> pieces) {
         boolean canMove = false;
@@ -36,9 +46,7 @@ public class Pawn extends ChessPiece {
 
         if (targetPiece != null && canTake(targetPiece)) {
             canMove = true;
-        }
-
-        else {
+        } else {
             switch (color) {
                 case BLACK:
                     if (didMove) {
