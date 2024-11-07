@@ -25,20 +25,23 @@ public class ChessPiece {
     }
 
     public void move(int x, int y, ArrayList<ChessPiece> pieces) {
-        if (this.canMove(x, y, pieces) ) {
+        ChessPiece target = getPieceAt(x, y, pieces);
+        if (target == null){
+        if (this.canMove(x, y, pieces)) {
+
+            this.x = x;
+            this.y = y;
+            didMove = true;
+        }} else if(target.getColor() != color && canMove(x, y, pieces)){
+            pieces.remove(target); // Remove the captured piece
             this.x = x;
             this.y = y;
             didMove = true;
         }
-        for (int j = pieces.size()-1; j >=0; j--) {
-            ChessPiece target = pieces.get(j);
-            if (target.getX() == x && target.getY() == y && target.getColor()
-                    != color) {
-                pieces.remove(j); // Remove the captured piece
-                break;
-            }
-        }
+
+
     }
+
 
     public ChessPiece getPieceAt(int x, int y, ArrayList<ChessPiece> pieces) {
         for (ChessPiece piece : pieces) {
@@ -81,7 +84,7 @@ public class ChessPiece {
     }
 
     public void draw(Graphics2D g2) {
-        draw(g2,this.x,this.y);
+        draw(g2, this.x, this.y);
     }
 
     public void draw(Graphics2D g2, int x, int y) {
@@ -89,7 +92,8 @@ public class ChessPiece {
         if (color == WHITE)
             g2.drawImage(getWhiteImage(), x + 2, y + 2, 70, 70, null);
         if (color == BLACK)
-            g2.drawImage(getBlackImage(), x + 2, y + 2, 70, 70, null);    }
+            g2.drawImage(getBlackImage(), x + 2, y + 2, 70, 70, null);
+    }
 
     public int getX() {
         return x;

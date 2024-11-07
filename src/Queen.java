@@ -1,5 +1,3 @@
-import javax.imageio.*;
-import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
 import java.util.*;
@@ -15,7 +13,7 @@ public class Queen extends ChessPiece {
                 y,
                 color,
                 "/queenW.png",
-                "/queenB.png" );
+                "/queenB.png");
     }
 
     @Override
@@ -54,9 +52,36 @@ public class Queen extends ChessPiece {
                         canMove = false;
                         break;
                     }
+
+            if (a > x && b < y)
+                for (int i = 1; i * 75 + x < a; i++)
+                    if (piece.getX() == i * 75 + x && piece.getY() == y - i * 75) {
+                        canMove = false;
+                        break;
+                    }
+            if (a > x && b > y)
+                for (int i = 1; i * 75 + x < a; i++)
+                    if (piece.getX() == i * 75 + x && piece.getY() == y + i * 75) {
+                        canMove = false;
+                        break;
+                    }
+            if (a < x && b < y)
+                for (int i = 1; i * 75 + x < a; i++)
+                    if (piece.getX() == x - i * 75 && piece.getY() == y - i * 75) {
+                        canMove = false;
+                        break;
+                    }
+            if (a < x && b > y)
+                for (int i = 1; i * 75 + x < a; i++)
+                    if (piece.getX() == x - i * 75 && piece.getY() == y + i * 75) {
+                        canMove = false;
+                        break;
+                    }
+
+
         }
+
         return canMove;
+
     }
-
-
 }

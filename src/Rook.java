@@ -1,6 +1,4 @@
-import javax.imageio.*;
 import java.awt.*;
-import java.awt.image.*;
 import java.io.*;
 import java.util.*;
 
@@ -14,44 +12,43 @@ public class Rook extends ChessPiece {
                 y,
                 color,
                 "/rookW.png",
-                "/rookB.png" );
+                "/rookB.png");
     }
-
-
 
 
     @Override
     public boolean canMove(int a, int b, ArrayList<ChessPiece> pieces) {
         boolean canMove = b == y || a == x;
-        ChessPiece targetPiece = getPieceAt(a, b, pieces);
 
 
         for (ChessPiece piece : pieces) {
             if (a > x)
-                for (int i = 1; i * 75 + x < a; i++)
-                    if (piece.getX() == i * 75 + x && piece.getY() == y) {
+                for (int i = 1; i * 75 + x <= a; i++)
+                    if (piece.getX() == i * 75 + x && piece.getY() == y && piece.getColor() == color) {
                         canMove = false;
                         break;
                     }
             if (a < x)
-                for (int i = 1; x - i * 75 > a; i++)
-                    if (piece.getX() == x - i * 75 && piece.getY() == y) {
+                for (int i = 1; x - i * 75 >= a; i++)
+                    if (piece.getX() == x - i * 75 && piece.getY() == y && piece.getColor() == color) {
                         canMove = false;
                         break;
                     }
             if (b > y)
-                for (int i = 1; i * 75 + y < b; i++)
-                    if (piece.getY() == i * 75 + y && piece.getX() == x) {
+                for (int i = 1; i * 75 + y <= b; i++)
+                    if (piece.getY() == i * 75 + y && piece.getX() == x && piece.getColor() == color) {
                         canMove = false;
                         break;
                     }
 
             if (b < y)
-                for (int i = 1; y - i * 75 > b; i++)
-                    if (piece.getY() == y - i * 75 && piece.getX() == x) {
+                for (int i = 1; y - i * 75 >= b; i++)
+                    if (piece.getY() == y - i * 75 && piece.getX() == x && piece.getColor() == color) {
                         canMove = false;
                         break;
                     }
+
+
         }
 
 

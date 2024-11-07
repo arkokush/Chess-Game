@@ -19,8 +19,14 @@ public class King extends ChessPiece {
 
     @Override
     public boolean canMove(int a, int b, ArrayList<ChessPiece> pieces) {
-        return (a == x + 75 && b == y) || (a == x - 75 && b == y) || (b == y + 75 && a == x) || (b == y - 75 && a == x)
+        boolean canMove = (a == x + 75 && b == y) || (a == x - 75 && b == y) || (b == y + 75 && a == x) || (b == y - 75 && a == x)
                 || (b == y + 75 && (a == x + 75 || a == x - 75)) || (b == y - 75 && (a == x + 75 || a == x - 75));
+        for (ChessPiece piece : pieces){
+            if (piece.getColor() != color && piece.canMove(a, b, pieces)) {
+                canMove = false;
+                break;
+            }}
+        return canMove;
 
     }
 }

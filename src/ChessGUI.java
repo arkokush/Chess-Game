@@ -306,9 +306,12 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
                     }
                 }
 
-                piece.setPickedUp(false);
                 System.out.println(piece + " was placed down");
-                piecePlaced = true;
+                if(!(x1==piece.getX()&&y1==piece.getY())&&piece.isPickedUp())
+                    piecePlaced = true;
+                piece.setPickedUp(false);
+
+
             }
 
         }

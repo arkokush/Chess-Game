@@ -26,6 +26,32 @@ public class Bishop extends ChessPiece {
                 canMove = true;
                 break;
             }
+        for(ChessPiece piece: pieces){
+            if (a > x && b < y)
+                for (int i = 1; i * 75 + x < a; i++)
+                    if (piece.getX() == i * 75 + x && piece.getY() == y - i * 75) {
+                        canMove = false;
+                        break;
+                    }
+            if (a > x && b > y)
+                for (int i = 1; i * 75 + x < a; i++)
+                    if (piece.getX() == i * 75 + x && piece.getY() == y + i * 75) {
+                        canMove = false;
+                        break;
+                    }
+            if (a < x && b < y)
+                for (int i = 1; i * 75 + x < a; i++)
+                    if (piece.getX() == x - i * 75 && piece.getY() == y - i * 75) {
+                        canMove = false;
+                        break;
+                    }
+            if (a < x && b > y)
+                for (int i = 1; i * 75 + x < a; i++)
+                    if (piece.getX() == x - i * 75 && piece.getY() == y + i * 75) {
+                        canMove = false;
+                        break;
+                    }
+        }
         return canMove;
     }}
 
