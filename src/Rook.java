@@ -8,12 +8,13 @@ import java.util.*;
 //Date: Nov 5, 2024
 
 public class Rook extends ChessPiece {
-    private BufferedImage rookW, rookB;
 
-    public Rook(int x, int y, int color) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
+    public Rook(int x, int y, int color) throws IOException {
+        super(x,
+                y,
+                color,
+                "/rookW.png",
+                "/rookB.png" );
     }
 
     @Override
@@ -25,20 +26,13 @@ public class Rook extends ChessPiece {
         }
     }
 
-    @Override
-    public boolean canTake(ChessPiece piece) {
-
-        return piece.getX() == x || piece.getY() == y;
-    }
 
     @Override
     public boolean canMove(int a, int b, ArrayList<ChessPiece> pieces) {
         boolean canMove = b == y || a == x;
         ChessPiece targetPiece = getPieceAt(a, b, pieces);
 
-        if (targetPiece != null && canTake(targetPiece)) {
-            canMove = true;
-        }
+
         for (ChessPiece piece : pieces) {
             if (a > x)
                 for (int i = 1; i * 75 + x < a; i++)
@@ -74,29 +68,17 @@ public class Rook extends ChessPiece {
 
     @Override
     public void draw(Graphics2D g2) {
-        try {
-            rookW = ImageIO.read(getClass().getResourceAsStream("/rookW.png"));
-            rookB = ImageIO.read(getClass().getResourceAsStream("/rookB.png"));
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (color == WHITE) g2.drawImage(rookW, x + 7, y + 2, 60, 70, null);
-        if (color == BLACK) g2.drawImage(rookB, x + 7, y + 2, 60, 70, null);
+        if (color == WHITE) g2.drawImage(getWhiteImage(), x + 7, y + 2, 60, 70, null);
+        if (color == BLACK) g2.drawImage(getBlackImage(), x + 7, y + 2, 60, 70, null);
 
     }
 
     @Override
     public void draw(Graphics2D g2, int x, int y) {
-        try {
-            rookW = ImageIO.read(getClass().getResourceAsStream("/rookW.png"));
-            rookB = ImageIO.read(getClass().getResourceAsStream("/rookB.png"));
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (color == WHITE) g2.drawImage(rookW, x + 7, y + 2, 60, 70, null);
-        if (color == BLACK) g2.drawImage(rookB, x + 7, y + 2, 60, 70, null);
+        if (color == WHITE) g2.drawImage(getWhiteImage(), x + 7, y + 2, 60, 70, null);
+        if (color == BLACK) g2.drawImage(getBlackImage(), x + 7, y + 2, 60, 70, null);
 
     }
 }

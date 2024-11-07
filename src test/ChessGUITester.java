@@ -3,13 +3,14 @@ import org.junit.Before;
 import org.junit.Test;
 import java.awt.Rectangle;
 import java.awt.event.*;
+import java.io.*;
 import java.util.ArrayList;
 
 public class ChessGUITester {
     private ChessGUI chessGUI;
 
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
         chessGUI = new ChessGUI();
     }
 

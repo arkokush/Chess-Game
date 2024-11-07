@@ -12,11 +12,12 @@ public class Knight extends ChessPiece
 {
     private BufferedImage knightW, knightB;
 
-    public Knight(int x, int y, int color)
-    {
-        this.x = x;
-        this.y = y;
-        this.color = color;
+    public Knight(int x, int y, int color) throws IOException {
+        super(x,
+                y,
+                color,
+                "/knightW.png",
+                "/knightB.png" );
     }
 
    
@@ -28,40 +29,5 @@ public class Knight extends ChessPiece
 
     }
 
-    @Override
-    public void draw(Graphics2D g2)
-    {
-        try
-        {
-            knightW = ImageIO.read(getClass().getResourceAsStream("/knightW.png"));
-            knightB = ImageIO.read(getClass().getResourceAsStream("/knightB.png"));
 
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        if (color == WHITE)
-            g2.drawImage(knightW, x + 2, y+2, 70, 70, null);
-        if (color == BLACK)
-            g2.drawImage(knightB, x + 2, y+2, 70, 70, null);
-
-    }
-
-    @Override
-    public void draw(Graphics2D g2, int x, int y)
-    {
-        try
-        {
-            knightW = ImageIO.read(getClass().getResourceAsStream("/knightW.png"));
-            knightB = ImageIO.read(getClass().getResourceAsStream("/knightB.png"));
-
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        if (color == WHITE)
-            g2.drawImage(knightW, x + 2, y+2, 70, 70, null);
-        if (color == BLACK)
-            g2.drawImage(knightB, x + 2, y+2, 70, 70, null);
-    }
 }

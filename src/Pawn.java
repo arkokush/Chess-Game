@@ -1,4 +1,3 @@
-import javax.imageio.*;
 import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
@@ -7,20 +6,13 @@ import java.util.*;
 public class Pawn extends ChessPiece {
     private BufferedImage pawnW, pawnB;
 
-    public Pawn(int x, int y, int color) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        loadImages();
-    }
 
-    private void loadImages() {
-        try {
-            pawnW = ImageIO.read(getClass().getResourceAsStream("/pawnW.png"));
-            pawnB = ImageIO.read(getClass().getResourceAsStream("/pawnB.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public Pawn(int x, int y, int color) throws IOException {
+        super(x,
+                y,
+                color,
+                "/pawnW.png",
+                "/pawnB.png");
     }
 
     @Override
@@ -87,20 +79,16 @@ public class Pawn extends ChessPiece {
     }
 
 
-
     @Override
     public void draw(Graphics2D g2) {
-        if (color == WHITE)
-            g2.drawImage(pawnW, x + 13, y + 7, 50, 60, null);
-        if (color == BLACK)
-            g2.drawImage(pawnB, x + 13, y + 7, 50, 60, null);
+        draw(g2, this.x, this.y);
     }
 
     @Override
     public void draw(Graphics2D g2, int x, int y) {
         if (color == WHITE)
-            g2.drawImage(pawnW, x + 13, y + 7, 50, 60, null);
+            g2.drawImage(getWhiteImage(), x + 12, y + 9, 50, 60, null);
         if (color == BLACK)
-            g2.drawImage(pawnB, x + 13, y + 7, 50, 60, null);
+            g2.drawImage(getBlackImage(), x + 12, y + 9, 50, 60, null);
     }
 }

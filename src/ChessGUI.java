@@ -10,6 +10,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -138,8 +139,7 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
     private ArrayList<ChessPiece> pBlack;
     private ArrayList<ChessPiece> pWhite;
 
-    public ChessGUI()
-    {
+    public ChessGUI() throws IOException {
         colorTurn = WHITE;
         pieces = new ArrayList<>();
         pBlack = new ArrayList<>();
@@ -286,32 +286,7 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
         return boxes;
     }
 
-    /*public boolean placePiece() {
-        boolean piecePlaced = false;
 
-        for (ChessPiece piece : pieces) {
-            int x1 = piece.getX();
-            int y1 = piece.getY();
-            if (piece.isPickedUp()) {
-                piece.move(xS, yS, pieces);
-                for (int i = pieces.size() - 1; i >= 0; i--) {
-                    if (pieces.indexOf(piece) != i) {
-                        ChessPiece target = pieces.get(i);
-                        if (target.getX() == xS && target.getY() == yS && target.getColor() != piece.getColor()) {
-                            pieces.remove(i); // Remove the captured piece
-                            break;
-                        }
-                    }
-                    piece.setPickedUp(false);
-                }
-
-
-                System.out.println(piece + " was placed down");
-                piecePlaced = true;
-            }
-        }
-        return piecePlaced;
-    }*/
     public boolean placePiece() {
         boolean piecePlaced = false;
 
@@ -324,7 +299,8 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
                 // Check if the new position captures an opponent's piece
                 for (int j = pieces.size()-1; j >=0; j--) {
                     ChessPiece target = pieces.get(j);
-                    if (target.getX() == xS && target.getY() == yS && target.getColor() != piece.getColor()) {
+                    if (target.getX() == xS && target.getY() == yS && target.getColor()
+                            != piece.getColor()&&piece.canMove(xS,yS,pieces)) {
                         pieces.remove(j); // Remove the captured piece
                         break;
                     }
@@ -372,8 +348,7 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
     {
     }
 
-    public static void runChessGUI()
-    {
+    public static void runChessGUI() throws IOException {
         JFrame frame = new JFrame("Chess Game");
         frame.add(new ChessGUI()); // Adds Game
         frame.pack(); // Adds Dimension
@@ -407,8 +382,7 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
 
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws Exception {
         ChessGUI.runChessGUI();
     }
 
