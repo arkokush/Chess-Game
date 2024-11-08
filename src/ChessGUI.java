@@ -296,18 +296,8 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
             int y1 = piece.getY();
             if (piece.isPickedUp()) {
                 piece.move(xS, yS, pieces);
-                // Check if the new position captures an opponent's piece
-                for (int j = pieces.size()-1; j >=0; j--) {
-                    ChessPiece target = pieces.get(j);
-                    if (target.getX() == xS && target.getY() == yS && target.getColor()
-                            != piece.getColor() && piece.canMove(xS,yS,pieces)) {
-                        pieces.remove(j); // Remove the captured piece
-                        break;
-                    }
-                }
-
                 System.out.println(piece + " was placed down");
-                if(!(x1==piece.getX()&&y1==piece.getY())&&piece.isPickedUp())
+                if(!(x1==piece.getX()&&y1==piece.getY())&&(piece.isPickedUp()||piece.getClass()==King.class))
                     piecePlaced = true;
                 piece.setPickedUp(false);
 
@@ -315,6 +305,7 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
             }
 
         }
+        System.out.println("Piece Placed:"+piecePlaced);
         return piecePlaced;
     }
 

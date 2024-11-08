@@ -62,7 +62,8 @@ public void castle(int a, int b, ArrayList<ChessPiece> pieces) {
     public boolean canMove ( int a, int b, ArrayList<ChessPiece > pieces){
         boolean canMove = (a == x + 75 && b == y) || (a == x - 75 && b == y) || (b == y + 75 && a == x) || (b == y - 75 && a == x)
                 || (b == y + 75 && (a == x + 75 || a == x - 75)) || (b == y - 75 && (a == x + 75 || a == x - 75));
-        for (ChessPiece piece : pieces) {
+        for (int i = pieces.size()-1;i>=0;i--) {
+            ChessPiece piece = pieces.get(i);
             if (piece.getClass() == Pawn.class) {
                 Pawn pawn = (Pawn) piece;
                 if (pawn.canTake(a, b) && pawn.getColor() != color) {
