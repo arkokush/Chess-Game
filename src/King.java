@@ -59,10 +59,13 @@ public void castle(int a, int b, ArrayList<ChessPiece> pieces) {
         }
     }}
     @Override
-    public boolean canMove ( int a, int b, ArrayList<ChessPiece > pieces){
-        boolean canMove = (a == x + 75 && b == y) || (a == x - 75 && b == y) || (b == y + 75 && a == x) || (b == y - 75 && a == x)
-                || (b == y + 75 && (a == x + 75 || a == x - 75)) || (b == y - 75 && (a == x + 75 || a == x - 75));
-        for (int i = pieces.size()-1;i>=0;i--) {
+    public boolean canMove(int a, int b, ArrayList<ChessPiece> pieces) {
+        King king = this;
+        int index = pieces.indexOf(this);
+        pieces.remove(this);
+        boolean canMove = (Math.abs(x - a) <= 75) && (Math.abs(y - b) <= 75);
+
+        for (int i = pieces.size() - 1; i >= 0; i--) {
             ChessPiece piece = pieces.get(i);
             if (piece.getClass() == Pawn.class) {
                 Pawn pawn = (Pawn) piece;
@@ -71,18 +74,19 @@ public void castle(int a, int b, ArrayList<ChessPiece> pieces) {
                     break;
                 }
             }
-            if (piece.getClass() != Pawn.class && piece.getColor() != color && piece.canMove(a, b, pieces)) {
+            if (piece.getClass() == King.class && piece.getColor() != color) {
+                if ((Math.abs(piece.getX() - a) <= 75) && (Math.abs(piece.getY() - b) <= 75)) {
+                    canMove = false;
+                    break;
+                }
+            }
+            if (piece.getClass() != Pawn.class && piece.getClass() != King.class && piece.getColor() != color && piece.canMove(a, b, pieces)) {
                 canMove = false;
                 break;
             }
-
-
         }
-
-
+        pieces.add(index,king);
         return canMove;
-
-    }
-}
+    }}
 
 
