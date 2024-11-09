@@ -43,7 +43,6 @@ public boolean inCheck(int a, int b, ArrayList<ChessPiece> pieces){
         King king = this;
     int index = pieces.indexOf(this);
     pieces.remove(this);
-
     for (int i = pieces.size() - 1; i >= 0; i--) {
         ChessPiece piece = pieces.get(i);
         if (piece.getClass() == Pawn.class) {

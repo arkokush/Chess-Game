@@ -20,44 +20,36 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
     private final King kingW;
     private final King kingB;
     private final ArrayList<ChessPiece> pieces;
-    private final ArrayList<ChessPiece> pBlack;
-    private final ArrayList<ChessPiece> pWhite;
 
     public ChessGUI() throws IOException {
         colorTurn = WHITE;
         pieces = new ArrayList<>();
-        pBlack = new ArrayList<>();
-        pWhite = new ArrayList<>();
 
         for (int i = 0; i < 8; i++) {
-            pWhite.add(new Pawn(i * 75, 450, WHITE));
-            pBlack.add(new Pawn(i * 75, 75, BLACK));
+            pieces.add(new Pawn(i * 75, 450, WHITE));
+            pieces.add(new Pawn(i * 75, 75, BLACK));
 
         }
-        pWhite.add(new Rook(0, 525, WHITE));
-        pWhite.add(new Knight(75, 525, WHITE));
-        pWhite.add(new Bishop(150, 525, WHITE));
-        pWhite.add(new Queen(225, 525, WHITE));
-        pWhite.add(new Bishop(375, 525, WHITE));
-        pWhite.add(new Knight(450, 525, WHITE));
-        pWhite.add(new Rook(525, 525, WHITE));
+        pieces.add(new Rook(0, 525, WHITE));
+        pieces.add(new Knight(75, 525, WHITE));
+        pieces.add(new Bishop(150, 525, WHITE));
+        pieces.add(new Queen(225, 525, WHITE));
+        pieces.add(new Bishop(375, 525, WHITE));
+        pieces.add(new Knight(450, 525, WHITE));
+        pieces.add(new Rook(525, 525, WHITE));
         kingW = new King(300, 525, WHITE);
-        pWhite.add(kingW);
-        pBlack.add(new Rook(0, 0, BLACK));
-        pBlack.add(new Knight(75, 0, BLACK));
-        pBlack.add(new Bishop(150, 0, BLACK));
-        pBlack.add(new Queen(225, 0, BLACK));
-        pBlack.add(new King(300, 0, BLACK));
-        pBlack.add(new Bishop(375, 0, BLACK));
-        pBlack.add(new Knight(450, 0, BLACK));
-        pBlack.add(new Rook(525, 0, BLACK));
+        pieces.add(kingW);
+        pieces.add(new Rook(0, 0, BLACK));
+        pieces.add(new Knight(75, 0, BLACK));
+        pieces.add(new Bishop(150, 0, BLACK));
+        pieces.add(new Queen(225, 0, BLACK));
+        pieces.add(new Bishop(375, 0, BLACK));
+        pieces.add(new Knight(450, 0, BLACK));
+        pieces.add(new Rook(525, 0, BLACK));
         kingB = new King(300, 0, BLACK);
-        pBlack.add(kingB);
+        pieces.add(kingB);
 
-        for (int i = 0; i < 16; i++) {
-            pieces.add(pWhite.get(i));
-            pieces.add(pBlack.get(i));
-        }
+
         this.setFocusable(true); // Lets KeyListener Detect the panel
         this.addKeyListener(this); // Adds the KeyListener
         this.addMouseListener(this); // Adds Mouselistener
@@ -187,12 +179,15 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
             ChessPiece piece = pieces.get(i);
             int x1 = piece.getX();
             int y1 = piece.getY();
+            boolean didMove = piece.didMove;
             if (piece.isPickedUp()) {
                 piece.move(xS, yS, pieces);
                 System.out.println(piece + " was placed down");
                 if((colorTurn == WHITE && kingW.inCheck(pieces))||colorTurn == BLACK && kingB.inCheck(pieces)){
                     piece.setX(x1);
                     piece.setY(y1);
+                    piece.setDidMove(didMove);
+
                 }
                 if (!(x1 == piece.getX() && y1 == piece.getY()) && (piece.isPickedUp() || piece.getClass() == King.class))
                     piecePlaced = true;
