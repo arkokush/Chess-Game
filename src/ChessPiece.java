@@ -15,10 +15,14 @@ public class ChessPiece {
     protected int color;
     protected boolean pickedUp = false;
     protected boolean didMove = false;
+    private final int w;
+    private final int h;
 
-    public ChessPiece(int x, int y, int color, String whiteImageLocation, String blackImageLocation) throws IOException {
+    public ChessPiece(int x, int y, int w, int h, int color, String whiteImageLocation, String blackImageLocation) throws IOException {
         this.x = x;
         this.y = y;
+        this.w = w;
+        this.h = h;
         this.color = color;
         this.whiteImage = ImageIO.read(getClass().getResourceAsStream(whiteImageLocation));
         this.blackImage = ImageIO.read(getClass().getResourceAsStream(blackImageLocation));
@@ -34,13 +38,14 @@ public class ChessPiece {
 
     public void move(int x, int y, ArrayList<ChessPiece> pieces) {
         ChessPiece target = getPieceAt(x, y, pieces);
-        if (target == null){
-        if (this.canMove(x, y, pieces)) {
+        if (target == null) {
+            if (this.canMove(x, y, pieces)) {
 
-            this.x = x;
-            this.y = y;
-            didMove = true;
-        }} else if(target.getColor() != color && canMove(x, y, pieces)){
+                this.x = x;
+                this.y = y;
+                didMove = true;
+            }
+        } else if (target.getColor() != color && canMove(x, y, pieces)) {
             pieces.remove(target); // Remove the captured piece
             this.x = x;
             this.y = y;
@@ -58,6 +63,18 @@ public class ChessPiece {
             }
         }
         return null;
+    }
+
+    public void draw(Graphics2D g2) {
+        draw(g2, this.x, this.y);
+    }
+
+    public void draw(Graphics2D g2, int x, int y) {
+
+        if (color == WHITE)
+            g2.drawImage(getWhiteImage(), x + (75 - w) / 2, y + (75 - h) / 2, w, h, null);
+        if (color == BLACK)
+            g2.drawImage(getBlackImage(), x + (75 - w) / 2, y + (75 - h) / 2, w, h, null);
     }
 
     public int getColor() {
@@ -91,17 +108,6 @@ public class ChessPiece {
                 x, y, 75, 75);
     }
 
-    public void draw(Graphics2D g2) {
-        draw(g2, this.x, this.y);
-    }
-
-    public void draw(Graphics2D g2, int x, int y) {
-
-        if (color == WHITE)
-            g2.drawImage(getWhiteImage(), x + 2, y + 2, 70, 70, null);
-        if (color == BLACK)
-            g2.drawImage(getBlackImage(), x + 2, y + 2, 70, 70, null);
-    }
 
     public int getX() {
         return x;

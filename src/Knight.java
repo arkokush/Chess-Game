@@ -15,6 +15,8 @@ public class Knight extends ChessPiece
     public Knight(int x, int y, int color) throws IOException {
         super(x,
                 y,
+                70,
+                70,
                 color,
                 "/knightW.png",
                 "/knightB.png" );

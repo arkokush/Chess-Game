@@ -10,6 +10,8 @@ public class Pawn extends ChessPiece {
     public Pawn(int x, int y, int color) throws IOException {
         super(x,
                 y,
+                50,
+                60,
                 color,
                 "/pawnW.png",
                 "/pawnB.png");
@@ -81,16 +83,5 @@ public class Pawn extends ChessPiece {
     }
 
 
-    @Override
-    public void draw(Graphics2D g2) {
-        draw(g2, this.x, this.y);
-    }
 
-    @Override
-    public void draw(Graphics2D g2, int x, int y) {
-        if (color == WHITE)
-            g2.drawImage(getWhiteImage(), x + 12, y + 9, 50, 60, null);
-        if (color == BLACK)
-            g2.drawImage(getBlackImage(), x + 12, y + 9, 50, 60, null);
-    }
 }

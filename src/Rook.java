@@ -10,6 +10,8 @@ public class Rook extends ChessPiece {
     public Rook(int x, int y, int color) throws IOException {
         super(x,
                 y,
+                60,
+                70,
                 color,
                 "/rookW.png",
                 "/rookB.png");
@@ -56,19 +58,5 @@ public class Rook extends ChessPiece {
     }
 
 
-    @Override
-    public void draw(Graphics2D g2) {
 
-        if (color == WHITE) g2.drawImage(getWhiteImage(), x + 7, y + 2, 60, 70, null);
-        if (color == BLACK) g2.drawImage(getBlackImage(), x + 7, y + 2, 60, 70, null);
-
-    }
-
-    @Override
-    public void draw(Graphics2D g2, int x, int y) {
-
-        if (color == WHITE) g2.drawImage(getWhiteImage(), x + 7, y + 2, 60, 70, null);
-        if (color == BLACK) g2.drawImage(getBlackImage(), x + 7, y + 2, 60, 70, null);
-
-    }
 }

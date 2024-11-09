@@ -12,6 +12,8 @@ public class Bishop extends ChessPiece {
     public Bishop(int x, int y, int color) throws IOException {
         super(x,
                 y,
+                70,
+                70,
                 color,
                 "/bishopW.png",
                 "/bishopB.png");

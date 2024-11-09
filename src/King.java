@@ -11,6 +11,8 @@ public class King extends ChessPiece {
     public King(int x, int y, int color) throws IOException {
         super(x,
                 y,
+                70,
+                70,
                 color,
                 "/kingW.png",
                 "/kingB.png");
