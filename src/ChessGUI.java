@@ -101,10 +101,15 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
         g2.fillRect(0, 0, this.getWidth(), this.getHeight());
         board.draw(g2);
         for (ChessPiece piece : pieces) {
-            if (piece.isPickedUp())
-                piece.draw(g2, cursorX, cursorY);
-            else
-                piece.draw(g2);
+
+            ChessPieceImage pieceImage;
+            if (piece.isPickedUp()) {
+                pieceImage = piece.draw(cursorX, cursorY);
+            } else {
+                pieceImage = piece.draw();
+            }
+
+            g2.drawImage(pieceImage.getImg(), pieceImage.getX(), pieceImage.getY(), pieceImage.getWidth(), pieceImage.getHeight(), null);
         }
         g2.setColor(new Color(255, 0, 0, 128));
         g2.fillRect(xS, yS, 75, 75);

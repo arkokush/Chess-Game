@@ -1,10 +1,7 @@
-import java.awt.*;
-import java.awt.image.*;
 import java.io.*;
 import java.util.*;
 
 public class Pawn extends ChessPiece {
-    private BufferedImage pawnW, pawnB;
 
 
     public Pawn(int x, int y, int color) throws IOException {

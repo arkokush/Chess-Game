@@ -1,5 +1,3 @@
-import java.awt.*;
-import java.awt.image.*;
 import java.io.*;
 import java.util.*;
 
@@ -7,7 +5,6 @@ import java.util.*;
 //Date: Nov 5, 2024
 
 public class Bishop extends ChessPiece {
-    private BufferedImage bishopW, bishopB;
 
     public Bishop(int x, int y, int color) throws IOException {
         super(x,

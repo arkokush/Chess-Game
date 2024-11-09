@@ -1,4 +1,3 @@
-import java.awt.image.*;
 import java.io.*;
 import java.util.*;
 
@@ -6,7 +5,6 @@ import java.util.*;
 //Date: Nov 5, 2024
 
 public class Queen extends ChessPiece {
-    private BufferedImage queenW, queenB;
 
     public Queen(int x, int y, int color) throws IOException {
         super(x,

@@ -1,16 +1,11 @@
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
+import java.io.*;
+import java.util.*;
 
 //Arkady Kokush
 //Date: Nov 5, 2024
 
 public class Knight extends ChessPiece
 {
-    private BufferedImage knightW, knightB;
 
     public Knight(int x, int y, int color) throws IOException {
         super(x,

@@ -74,16 +74,18 @@ public class ChessPiece {
         return null;
     }
 
-    public void draw(Graphics2D g2) {
-        draw(g2, this.x, this.y);
+    public ChessPieceImage draw() {
+        return draw( this.x, this.y);
     }
 
-    public void draw(Graphics2D g2, int x, int y) {
+    public ChessPieceImage draw(int x, int y) {
 
-        if (color == WHITE)
-            g2.drawImage(getWhiteImage(), x + (75 - w) / 2, y + (75 - h) / 2, w, h, null);
-        if (color == BLACK)
-            g2.drawImage(getBlackImage(), x + (75 - w) / 2, y + (75 - h) / 2, w, h, null);
+        if (color == WHITE) {
+            return new ChessPieceImage(getWhiteImage(), x + (75 - w) / 2, y + (75 - h) / 2, w, h);
+        } else {
+
+            return new ChessPieceImage(getBlackImage(), x + (75 - w) / 2, y + (75 - h) / 2, w, h);
+        }
     }
 
     public int getColor() {
