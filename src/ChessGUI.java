@@ -13,13 +13,14 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
     public static final int PANEL_HEIGHT = 600;
     public static final int WHITE = 1;
     public static final int BLACK = 2;
-    private int colorTurn;
-    private int xS = -75, yS = -75;
-    private int cursorX = 0, cursorY = 0;
     private final ChessBoard board;
     private final King kingW;
     private final King kingB;
     private final ArrayList<ChessPiece> pieces;
+    private int colorTurn;
+    private int xS = -75, yS = -75;
+    private int cursorX = 0, cursorY = 0;
+    private boolean pieceSelected;
 
     public ChessGUI() throws IOException {
         colorTurn = WHITE;
@@ -145,26 +146,30 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
     @Override
     public void mousePressed(MouseEvent e) {
         handleMousePress(e);
-    }
+        System.out.println("Piece selected: "+pieceSelected);}
 
     private void handleMousePress(MouseEvent e) {
         Rectangle mouse = new Rectangle(e.getX(), e.getY(), 1, 1);
         ArrayList<Rectangle> boxes = createBoardRectangles();
         ArrayList<Rectangle> pHitboxes = getHitbox(pieces);
 
-        for (Rectangle b : boxes) {
-            if (mouse.intersects(b)) {
-                xS = (int) b.getX();
-                yS = (int) b.getY();
-                if (placePiece()) { // Only change turn if a piece is placed
-                    if (colorTurn == WHITE)
-                        colorTurn = BLACK;
-                    else
-                        colorTurn = WHITE;
+            for (Rectangle b : boxes) {
+                if (mouse.intersects(b)) {
+                    xS = (int) b.getX();
+                    yS = (int) b.getY();
+                    if (placePiece()) { // Only change turn if a piece is placed
+                        if (colorTurn == WHITE) {
+                            colorTurn = BLACK;
+                        } else {
+                            colorTurn = WHITE;
+                        }
+
+                    }
                 }
             }
+         if(!pieceSelected) {
+            pickUpPiece(mouse, pHitboxes);
         }
-        pickUpPiece(mouse, pHitboxes);
     }
 
     public ArrayList<Rectangle> createBoardRectangles() {
@@ -188,14 +193,16 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
             if (piece.isPickedUp()) {
                 piece.move(xS, yS, pieces);
                 System.out.println(piece + " was placed down");
-                if((colorTurn == WHITE && kingW.inCheck(pieces))||colorTurn == BLACK && kingB.inCheck(pieces)){
+                if ((colorTurn == WHITE && kingW.inCheck(pieces)) || colorTurn == BLACK && kingB.inCheck(pieces)) {
                     piece.setX(x1);
                     piece.setY(y1);
                     piece.setDidMove(didMove);
 
                 }
-                if (!(x1 == piece.getX() && y1 == piece.getY()) && (piece.isPickedUp() || piece.getClass() == King.class))
+                if (!(x1 == piece.getX() && y1 == piece.getY()) && (piece.isPickedUp() || piece.getClass() == King.class)) {
                     piecePlaced = true;
+                }
+                pieceSelected = false;
                 piece.setPickedUp(false);
 
 
@@ -209,15 +216,17 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
     public void pickUpPiece(Rectangle mouse, ArrayList<Rectangle> pHitboxes) {
         for (Rectangle p : pHitboxes) {
             if (mouse.intersects(p)) {
-                ChessPiece piece = pieces.get(pHitboxes.indexOf(p));
+                ChessPiece piece = ChessPiece.getPieceAt((int) p.getX(), (int) p.getY(),pieces);
+                if(piece!=null){
                 if (!piece.isPickedUp() && piece.getColor() == colorTurn) {
                     piece.setPickedUp(true);
                     System.out.println(piece + " was picked up");
                     System.out.println(colorTurn + " :turn");
-
+                    pieceSelected = true;
                 }
-            }
+            }}
         }
+
     }
 
     @Override

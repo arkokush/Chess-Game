@@ -10,6 +10,9 @@ import java.util.*;
 public class ChessPiece {
     public static final int WHITE = 1;
     public static final int BLACK = 2;
+    enum PieceColor{
+        WHITE,BLACK
+    }
     private final BufferedImage whiteImage, blackImage;
     protected int x, y;
     protected int color;
@@ -46,26 +49,28 @@ public class ChessPiece {
                 didMove = true;
             }
         } else if (target.getColor() != color && canMove(x, y, pieces)) {
+
             pieces.remove(target); // Remove the captured piece
             this.x = x;
             this.y = y;
             didMove = true;
+
         }
-        if (this.getClass()==Pawn.class)
-        if((y==0&&color==WHITE)||(y==525&&color==BLACK)){
+        if (this.getClass()==Pawn.class){
+        if((y==0&&color==WHITE)||(y==525&&color==BLACK)) {
             int index = pieces.indexOf(this);
             pieces.remove(this);
             try {
-                pieces.add(index,new Queen(x,y,color));
+                pieces.add(index, new Queen(x, y, color));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
+        }
 
         }}
 
 
-    public ChessPiece getPieceAt(int x, int y, ArrayList<ChessPiece> pieces) {
+    public static ChessPiece getPieceAt(int x, int y, ArrayList<ChessPiece> pieces) {
         for (ChessPiece piece : pieces) {
             if (piece.getX() == x && piece.getY() == y) {
                 return piece;
