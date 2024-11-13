@@ -146,28 +146,29 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
     @Override
     public void mousePressed(MouseEvent e) {
         handleMousePress(e);
-        System.out.println("Piece selected: "+pieceSelected);}
+        System.out.println("Piece selected: " + pieceSelected);
+    }
 
     private void handleMousePress(MouseEvent e) {
         Rectangle mouse = new Rectangle(e.getX(), e.getY(), 1, 1);
         ArrayList<Rectangle> boxes = createBoardRectangles();
         ArrayList<Rectangle> pHitboxes = getHitbox(pieces);
 
-            for (Rectangle b : boxes) {
-                if (mouse.intersects(b)) {
-                    xS = (int) b.getX();
-                    yS = (int) b.getY();
-                    if (placePiece()) { // Only change turn if a piece is placed
-                        if (colorTurn == WHITE) {
-                            colorTurn = BLACK;
-                        } else {
-                            colorTurn = WHITE;
-                        }
-
+        for (Rectangle b : boxes) {
+            if (mouse.intersects(b)) {
+                xS = (int) b.getX();
+                yS = (int) b.getY();
+                if (placePiece()) { // Only change turn if a piece is placed
+                    if (colorTurn == WHITE) {
+                        colorTurn = BLACK;
+                    } else {
+                        colorTurn = WHITE;
                     }
+
                 }
             }
-         if(!pieceSelected) {
+        }
+        if (!pieceSelected) {
             pickUpPiece(mouse, pHitboxes);
         }
     }
@@ -216,15 +217,16 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
     public void pickUpPiece(Rectangle mouse, ArrayList<Rectangle> pHitboxes) {
         for (Rectangle p : pHitboxes) {
             if (mouse.intersects(p)) {
-                ChessPiece piece = ChessPiece.getPieceAt((int) p.getX(), (int) p.getY(),pieces);
-                if(piece!=null){
-                if (!piece.isPickedUp() && piece.getColor() == colorTurn) {
-                    piece.setPickedUp(true);
-                    System.out.println(piece + " was picked up");
-                    System.out.println(colorTurn + " :turn");
-                    pieceSelected = true;
+                ChessPiece piece = ChessPiece.getPieceAt((int) p.getX(), (int) p.getY(), pieces);
+                if (piece != null) {
+                    if (!piece.isPickedUp() && piece.getColor() == colorTurn) {
+                        piece.setPickedUp(true);
+                        System.out.println(piece + " was picked up");
+                        System.out.println(colorTurn + " :turn");
+                        pieceSelected = true;
+                    }
                 }
-            }}
+            }
         }
 
     }

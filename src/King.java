@@ -73,6 +73,7 @@ public boolean inCheck(int a, int b, ArrayList<ChessPiece> pieces){
     public void castle(int a, int b, ArrayList<ChessPiece> pieces) {
         if (a == x + 150) {
             Rook rook = (Rook) getPieceAt(a + 75, b, pieces);
+            if(!(this.inCheck(pieces)||this.inCheck(x+75,y,pieces)||this.inCheck(x+150,y,pieces))){
             if (rook != null && rook.getColor() == color && !rook.isDidMove()) {
                 this.x = a;
                 this.y = b;
@@ -80,16 +81,20 @@ public boolean inCheck(int a, int b, ArrayList<ChessPiece> pieces){
                 didMove = true;
                 rook.setDidMove(true);
             }
+            }
 
         }
         if (a == x - 150) {
-            Rook rook = (Rook) getPieceAt(a - 150, b, pieces);
+            if(!(this.inCheck(pieces)||this.inCheck(x-75,y,pieces)||this.inCheck(x-150,y,pieces))){
+
+                Rook rook = (Rook) getPieceAt(a - 150, b, pieces);
             if (rook != null && rook.getColor() == color && !rook.isDidMove()) {
                 this.x = a;
                 this.y = b;
                 rook.setX(x + 75);
                 didMove = true;
                 rook.setDidMove(true);
+            }
             }
         }
     }

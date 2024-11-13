@@ -43,9 +43,7 @@ public class Pawn extends ChessPiece {
         boolean canMove = false;
         ChessPiece targetPiece = getPieceAt(a, b, pieces);
 
-        if (targetPiece != null && canTake(targetPiece)) {
-            canMove = true;
-        } else {
+         if(targetPiece==null) {
             switch (color) {
                 case BLACK:
                     if (didMove) {
@@ -74,6 +72,9 @@ public class Pawn extends ChessPiece {
                     }
                     break;
             }
+        }
+        else if (canTake(targetPiece)) {
+            canMove = true;
         }
 
         return canMove;
