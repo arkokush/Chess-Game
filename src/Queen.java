@@ -27,56 +27,64 @@ public class Queen extends ChessPiece {
                 break;
             }
         for (ChessPiece piece : pieces) {
-            if (a > x && b == y)
-                for (int i = 1; i * 75 + x < a; i++)
+            if (a > x && b == y) {
+                for (int i = 1; i * 75 + x < a; i++) {
                     if (piece.getX() == i * 75 + x && piece.getY() == y) {
                         canMove = false;
                         break;
                     }
-            if (a < x && b == y)
-                for (int i = 1; x - i * 75 > a; i++)
+                }
+            } else if (a < x && b == y) {
+                for (int i = 1; x - i * 75 > a; i++) {
                     if (piece.getX() == x - i * 75 && piece.getY() == y) {
                         canMove = false;
                         break;
                     }
-            if (b > y && a == x)
-                for (int i = 1; i * 75 + y < b; i++)
+                }
+            } else if (b > y && a == x) {
+                for (int i = 1; i * 75 + y < b; i++) {
                     if (piece.getY() == i * 75 + y && piece.getX() == x) {
                         canMove = false;
                         break;
                     }
-
-            if (b < y && a == x)
-                for (int i = 1; y - i * 75 > b; i++)
+                }
+            } else if (b < y && a == x) {
+                for (int i = 1; y - i * 75 > b; i++) {
                     if (piece.getY() == y - i * 75 && piece.getX() == x) {
                         canMove = false;
                         break;
                     }
-
-            if (a > x && b < y)
-                for (int i = 1; i * 75 + x < a; i++)
+                }
+            } else if (a > x && b < y) {// Top right
+                for (int i = 1; i * 75 + x < a; i++) {
                     if (piece.getX() == i * 75 + x && piece.getY() == y - i * 75) {
                         canMove = false;
                         break;
                     }
-            if (a > x && b > y)
-                for (int i = 1; i * 75 + x < a; i++)
+                }
+            } else if (a > x && b > y) {// Bottom Right
+                for (int i = 1; i * 75 + x < a; i++) {
                     if (piece.getX() == i * 75 + x && piece.getY() == y + i * 75) {
                         canMove = false;
                         break;
                     }
-            if (a < x && b < y)
-                for (int i = 1; i * 75 + x < a; i++)
+                }
+            } else if (a < x && b < y) {// Top Left
+                for (int i = 1; x - i * 75 > a; i++) {
                     if (piece.getX() == x - i * 75 && piece.getY() == y - i * 75) {
                         canMove = false;
+                        System.out.println("Top Left");
                         break;
                     }
-            if (a < x && b > y)
-                for (int i = 1; i * 75 + x < a; i++)
+                }
+            } else if (a < x && b > y) {// Bottom Left
+                for (int i = 1; x - i * 75 > a; i++) {
                     if (piece.getX() == x - i * 75 && piece.getY() == y + i * 75) {
                         canMove = false;
                         break;
                     }
+                }
+            }
 
 
         }

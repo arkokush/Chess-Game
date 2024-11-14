@@ -14,9 +14,10 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
     public static final int WHITE = 1;
     public static final int BLACK = 2;
     private final ChessBoard board;
-    private final King kingW;
-    private final King kingB;
-    private final ArrayList<ChessPiece> pieces;
+    private King kingW;
+    private King kingB;
+    private ArrayList<ChessPiece> pieces;
+    private ArrayList<ChessPiece> pawns;
     private int colorTurn;
     private int xS = -75, yS = -75;
     private int cursorX = 0, cursorY = 0;
@@ -25,11 +26,13 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
     public ChessGUI() throws IOException {
         colorTurn = WHITE;
         pieces = new ArrayList<>();
-
+        pawns = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
-            pieces.add(new Pawn(i * 75, 450, WHITE));
-            pieces.add(new Pawn(i * 75, 75, BLACK));
-
+            pawns.add(new Pawn(i * 75, 450, WHITE));
+            pawns.add(new Pawn(i * 75, 75, BLACK));
+        }
+        for (ChessPiece pawn : pawns) {
+            pieces.add(pawn);
         }
         pieces.add(new Rook(0, 525, WHITE));
         pieces.add(new Knight(75, 525, WHITE));
@@ -61,9 +64,36 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                // System.out.println("Time...");
                 repaint();
 
+                for (int i = pawns.size()-1;i>=0;i--) {
+                    ChessPiece pawn = pawns.get(i);
+                    int xP = pawn.getX();
+                    int yP = pawn.getY();
+                    int index = pieces.indexOf(pawn);
+                    if (pawn.getColor() == WHITE) {
+                        if (yP == 0) {
+                            pawns.remove(pawn);
+                            pieces.remove(pawn);
+                            try {
+                                pieces.add(index, new Queen(xP, yP, WHITE));
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        }
+                    }
+                    if (pawn.getColor() == BLACK) {
+                        if (yP == 525) {
+                            pawns.remove(pawn);
+                            pieces.remove(pawn);
+                            try {
+                                pieces.add(index, new Queen(xP, yP, BLACK));
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        }
+                    }
+                }
             }
 
         });
@@ -105,7 +135,7 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
 
             ChessPieceImage pieceImage;
             if (piece.isPickedUp()) {
-                pieceImage = piece.draw(cursorX, cursorY);
+                pieceImage = piece.draw(cursorX - 30, cursorY-30);
             } else {
                 pieceImage = piece.draw();
             }

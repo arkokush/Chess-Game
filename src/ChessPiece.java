@@ -56,18 +56,9 @@ public class ChessPiece {
             didMove = true;
 
         }
-        if (this.getClass()==Pawn.class){
-        if((y==0&&color==WHITE)||(y==525&&color==BLACK)) {
-            int index = pieces.indexOf(this);
-            pieces.remove(this);
-            try {
-                pieces.add(index, new Queen(x, y, color));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
 
-        }}
+
+        }
 
 
     public static ChessPiece getPieceAt(int x, int y, ArrayList<ChessPiece> pieces) {
