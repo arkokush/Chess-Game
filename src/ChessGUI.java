@@ -14,10 +14,10 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
     public static final int WHITE = 1;
     public static final int BLACK = 2;
     private final ChessBoard board;
-    private King kingW;
-    private King kingB;
-    private ArrayList<ChessPiece> pieces;
-    private ArrayList<ChessPiece> pawns;
+    private final King kingW;
+    private final King kingB;
+    private final ArrayList<ChessPiece> pieces;
+    private final ArrayList<ChessPiece> pawns;
     private int colorTurn;
     private int xS = -75, yS = -75;
     private int cursorX = 0, cursorY = 0;
@@ -31,9 +31,7 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
             pawns.add(new Pawn(i * 75, 450, WHITE));
             pawns.add(new Pawn(i * 75, 75, BLACK));
         }
-        for (ChessPiece pawn : pawns) {
-            pieces.add(pawn);
-        }
+        pieces.addAll(pawns);
         pieces.add(new Rook(0, 525, WHITE));
         pieces.add(new Knight(75, 525, WHITE));
         pieces.add(new Bishop(150, 525, WHITE));
@@ -56,46 +54,41 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
 
         this.setFocusable(true); // Lets KeyListener Detect the panel
         this.addKeyListener(this); // Adds the KeyListener
-        this.addMouseListener(this); // Adds Mouselistener
-        this.addMouseMotionListener(this); // Adds Mouse Motion Listenerw
+        this.addMouseListener(this); // Adds Mouse listener
+        this.addMouseMotionListener(this); // Adds Mouse Motion Listener
         board = new ChessBoard(600, 600);
-        Timer timer = new Timer(10, new ActionListener() // Creates Timer in order to keep code running
-        {
+        // Creates Timer in order to keep code running
+        Timer timer = new Timer(10, e -> {
+            repaint();
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                repaint();
-
-                for (int i = pawns.size()-1;i>=0;i--) {
-                    ChessPiece pawn = pawns.get(i);
-                    int xP = pawn.getX();
-                    int yP = pawn.getY();
-                    int index = pieces.indexOf(pawn);
-                    if (pawn.getColor() == WHITE) {
-                        if (yP == 0) {
-                            pawns.remove(pawn);
-                            pieces.remove(pawn);
-                            try {
-                                pieces.add(index, new Queen(xP, yP, WHITE));
-                            } catch (IOException ex) {
-                                throw new RuntimeException(ex);
-                            }
+            for (int i = pawns.size()-1;i>=0;i--) {
+                ChessPiece pawn = pawns.get(i);
+                int xP = pawn.getX();
+                int yP = pawn.getY();
+                int index = pieces.indexOf(pawn);
+                if (pawn.getColor() == WHITE) {
+                    if (yP == 0) {
+                        pawns.remove(pawn);
+                        pieces.remove(pawn);
+                        try {
+                            pieces.add(index, new Queen(xP, yP, WHITE));
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
                         }
                     }
-                    if (pawn.getColor() == BLACK) {
-                        if (yP == 525) {
-                            pawns.remove(pawn);
-                            pieces.remove(pawn);
-                            try {
-                                pieces.add(index, new Queen(xP, yP, BLACK));
-                            } catch (IOException ex) {
-                                throw new RuntimeException(ex);
-                            }
+                }
+                if (pawn.getColor() == BLACK) {
+                    if (yP == 525) {
+                        pawns.remove(pawn);
+                        pieces.remove(pawn);
+                        try {
+                            pieces.add(index, new Queen(xP, yP, BLACK));
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
                         }
                     }
                 }
             }
-
         });
         timer.start(); // Starts Timer
     }

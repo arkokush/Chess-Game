@@ -37,6 +37,7 @@ public class TestQueen {
         pieces.add( new Pawn(375, 225, ChessPiece.WHITE));
         pieces.add( new Pawn(225, 375, ChessPiece.WHITE));
         pieces.add( new Pawn(375, 375, ChessPiece.WHITE));
+
         // Test cannot jump over
         assertFalse(queen.canMove(300, 75, pieces)); // Moves Up
         assertFalse(queen.canMove(300, 450, pieces)); // Moves Down
