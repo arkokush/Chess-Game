@@ -26,21 +26,21 @@ public class Bishop extends ChessPiece {
                 break;
             }
         for (ChessPiece piece : pieces) {
-            if (a > x && b < y) {// Top right
+            if (a > x && b < y) { // Top right
                 for (int i = 1; i * 75 + x < a; i++) {
                     if (piece.getX() == i * 75 + x && piece.getY() == y - i * 75) {
                         canMove = false;
                         break;
                     }
                 }
-            } else if (a > x && b > y) {// Bottom Right
+            } else if (a > x && b > y) { // Bottom Right
                 for (int i = 1; i * 75 + x < a; i++) {
                     if (piece.getX() == i * 75 + x && piece.getY() == y + i * 75) {
                         canMove = false;
                         break;
                     }
                 }
-            } else if (a < x && b < y) {// Top Left
+            } else if (a < x && b < y) { // Top Left
                 for (int i = 1; x - i * 75 > a; i++) {
                     if (piece.getX() == x - i * 75 && piece.getY() == y - i * 75) {
                         canMove = false;
@@ -48,7 +48,7 @@ public class Bishop extends ChessPiece {
                         break;
                     }
                 }
-            } else if (a < x && b > y) {// Bottom Left
+            } else if (a < x && b > y) { // Bottom Left
                 for (int i = 1; x - i * 75 > a; i++) {
                     if (piece.getX() == x - i * 75 && piece.getY() == y + i * 75) {
                         canMove = false;
