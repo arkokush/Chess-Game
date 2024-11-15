@@ -226,6 +226,16 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
                 if (!(x1 == piece.getX() && y1 == piece.getY()) && (piece.isPickedUp() || piece.getClass() == King.class)) {
                     piecePlaced = true;
                 }
+                if((piece.getColor()==WHITE&&piece.getY()==75)||(piece.getColor()==BLACK&&piece.getY()==525)){
+                    ChessPiece left = ChessPiece.getPieceAt(piece.getX()-75,piece.getY(),pieces);
+                    ChessPiece right = ChessPiece.getPieceAt(piece.getX()+75,piece.getY(),pieces);
+                    if((left.getClass()==Pawn.class)&&(left.getColor()!=piece.getColor())){
+                        ((Pawn) left).setEnPassantEligible(true);
+                    }
+                    if((right.getClass()==Pawn.class)&&(right.getColor()!=piece.getColor())){
+                        ((Pawn) right).setEnPassantEligible(true);
+                    }
+                }
                 pieceSelected = false;
                 piece.setPickedUp(false);
 

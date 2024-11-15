@@ -10,16 +10,13 @@ import java.util.*;
 public class ChessPiece {
     public static final int WHITE = 1;
     public static final int BLACK = 2;
-    enum PieceColor{
-        WHITE,BLACK
-    }
     private final BufferedImage whiteImage, blackImage;
+    private final int w;
+    private final int h;
     protected int x, y;
     protected int color;
     protected boolean pickedUp = false;
     protected boolean didMove = false;
-    private final int w;
-    private final int h;
 
     public ChessPiece(int x, int y, int w, int h, int color, String whiteImageLocation, String blackImageLocation) throws IOException {
         this.x = x;
@@ -29,6 +26,15 @@ public class ChessPiece {
         this.color = color;
         this.whiteImage = ImageIO.read(getClass().getResourceAsStream(whiteImageLocation));
         this.blackImage = ImageIO.read(getClass().getResourceAsStream(blackImageLocation));
+    }
+
+    public static ChessPiece getPieceAt(int x, int y, ArrayList<ChessPiece> pieces) {
+        for (ChessPiece piece : pieces) {
+            if (piece.getX() == x && piece.getY() == y) {
+                return piece;
+            }
+        }
+        return null;
     }
 
     public boolean isDidMove() {
@@ -48,6 +54,21 @@ public class ChessPiece {
                 this.y = y;
                 didMove = true;
             }
+            if (this.getClass() == Pawn.class && ((Pawn) this).isEnPassantEligible()) {
+                if ((color == WHITE) && (x == this.x + 75 || x == this.x - 75) && y == this.y - 75) {
+                    pieces.remove(getPieceAt(x, y + 75, pieces)); // Remove the captured piece
+                    this.x = x;
+                    this.y = y;
+                    didMove = true;
+                }
+                if ((color == BLACK) && (x == this.x + 75 || x == this.x - 75) && y == this.y + 75) {
+                    pieces.remove(getPieceAt(x, y - 75, pieces)); // Remove the captured piece
+                    this.x = x;
+                    this.y = y;
+                    didMove = true;
+                }
+
+            }
         } else if (target.getColor() != color && canMove(x, y, pieces)) {
 
             pieces.remove(target); // Remove the captured piece
@@ -58,20 +79,10 @@ public class ChessPiece {
         }
 
 
-        }
-
-
-    public static ChessPiece getPieceAt(int x, int y, ArrayList<ChessPiece> pieces) {
-        for (ChessPiece piece : pieces) {
-            if (piece.getX() == x && piece.getY() == y) {
-                return piece;
-            }
-        }
-        return null;
     }
 
     public ChessPieceImage draw() {
-        return draw( this.x, this.y);
+        return draw(this.x, this.y);
     }
 
     public ChessPieceImage draw(int x, int y) {
@@ -100,7 +111,6 @@ public class ChessPiece {
         this.pickedUp = pickedUp;
     }
 
-
     public boolean canTake(ChessPiece piece) {
 
         return false;
@@ -114,7 +124,6 @@ public class ChessPiece {
         return new Rectangle(
                 x, y, 75, 75);
     }
-
 
     public int getX() {
         return x;
@@ -132,12 +141,15 @@ public class ChessPiece {
         this.y = y;
     }
 
-
     public BufferedImage getWhiteImage() {
         return whiteImage;
     }
 
     public BufferedImage getBlackImage() {
         return blackImage;
+    }
+
+    enum PieceColor {
+        WHITE, BLACK
     }
 }

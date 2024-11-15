@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Pawn extends ChessPiece {
-
+private boolean enPassantEligible = false;
 
     public Pawn(int x, int y, int color) throws IOException {
         super(x,
@@ -14,28 +14,25 @@ public class Pawn extends ChessPiece {
                 "/pawnB.png");
     }
 
+    public boolean isEnPassantEligible() {
+        return enPassantEligible;
+    }
 
-    @Override
-    public boolean canTake(ChessPiece piece) {
-        switch (color) {
-            case BLACK:
-                return color != piece.getColor() && piece.getY() == y + 75
-                        && (piece.getX() == x + 75 || piece.getX() == x - 75);
-            case WHITE:
-                return color != piece.getColor() && piece.getY() == y - 75
-                        && (piece.getX() == x + 75 || piece.getX() == x - 75);
-        }
-        return false;
+    public void setEnPassantEligible(boolean enPassantEligible) {
+        this.enPassantEligible = enPassantEligible;
     }
 
     public boolean canTake(int a, int b) {
+        boolean canMove = false;
         switch (color) {
             case BLACK:
-                return b == y + 75 && (a == x + 75 || a == x - 75);
+                canMove = b == y + 75 && (a == x + 75 || a == x - 75);
+                break;
             case WHITE:
-                return b == y - 75 && (a == x + 75 || a == x - 75);
+                canMove = b == y - 75 && (a == x + 75 || a == x - 75);
+                break;
         }
-        return false;
+        return canMove;
     }
 
     @Override
@@ -73,7 +70,7 @@ public class Pawn extends ChessPiece {
                     break;
             }
         }
-        else if (canTake(targetPiece)) {
+        else if (canTake(a,b)) {
             canMove = true;
         }
 
