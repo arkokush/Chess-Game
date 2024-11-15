@@ -61,7 +61,7 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
         Timer timer = new Timer(10, e -> {
             repaint();
 
-            for (int i = pawns.size()-1;i>=0;i--) {
+            for (int i = pawns.size() - 1; i >= 0; i--) {
                 ChessPiece pawn = pawns.get(i);
                 int xP = pawn.getX();
                 int yP = pawn.getY();
@@ -128,7 +128,7 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
 
             ChessPieceImage pieceImage;
             if (piece.isPickedUp()) {
-                pieceImage = piece.draw(cursorX - 30, cursorY-30);
+                pieceImage = piece.draw(cursorX - 30, cursorY - 30);
             } else {
                 pieceImage = piece.draw();
             }
@@ -182,6 +182,10 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
                 xS = (int) b.getX();
                 yS = (int) b.getY();
                 if (placePiece()) { // Only change turn if a piece is placed
+                    for(ChessPiece p: pawns){
+                        if(p.color==colorTurn)
+                            ((Pawn) p).setEnPassantEligible(false);
+                    }
                     if (colorTurn == WHITE) {
                         colorTurn = BLACK;
                     } else {
@@ -226,13 +230,13 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
                 if (!(x1 == piece.getX() && y1 == piece.getY()) && (piece.isPickedUp() || piece.getClass() == King.class)) {
                     piecePlaced = true;
                 }
-                if((piece.getColor()==WHITE&&piece.getY()==75)||(piece.getColor()==BLACK&&piece.getY()==525)){
-                    ChessPiece left = ChessPiece.getPieceAt(piece.getX()-75,piece.getY(),pieces);
-                    ChessPiece right = ChessPiece.getPieceAt(piece.getX()+75,piece.getY(),pieces);
-                    if((left.getClass()==Pawn.class)&&(left.getColor()!=piece.getColor())){
+                if ((piece.getColor() == WHITE && piece.getY() == 75) || (piece.getColor() == BLACK && piece.getY() == 525)) {
+                    ChessPiece left = ChessPiece.getPieceAt(piece.getX() - 75, piece.getY(), pieces);
+                    ChessPiece right = ChessPiece.getPieceAt(piece.getX() + 75, piece.getY(), pieces);
+                    if (left!=null&&(left.getClass() == Pawn.class) && (left.getColor() != piece.getColor())) {
                         ((Pawn) left).setEnPassantEligible(true);
                     }
-                    if((right.getClass()==Pawn.class)&&(right.getColor()!=piece.getColor())){
+                    if (right!=null&&(right.getClass() == Pawn.class) && (right.getColor() != piece.getColor())) {
                         ((Pawn) right).setEnPassantEligible(true);
                     }
                 }
