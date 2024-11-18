@@ -98,7 +98,6 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
                                 {"Queen", "Rook", "Knight", "Bishop"};
                         String promoteSelect = (String) JOptionPane.showInputDialog(null, "Promote to:", "Promotion Screen",
                                 JOptionPane.PLAIN_MESSAGE, null, pieceOptions, pieceOptions[0]);
-                        promotion = true;
                         pawns.remove(pawn);
                         pieces.remove(pawn);
                         try {
