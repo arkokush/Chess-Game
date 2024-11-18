@@ -13,6 +13,10 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
     public static final int PANEL_HEIGHT = 600;
     public static final int WHITE = 1;
     public static final int BLACK = 2;
+    public static final int QUEEN = 1;
+    public static final int ROOK = 2;
+    public static final int KNIGHT = 3;
+    public static final int BISHOP = 4;
     private final ChessBoard board;
     private final King kingW;
     private final King kingB;
@@ -22,6 +26,7 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
     private int xS = -75, yS = -75;
     private int cursorX = 0, cursorY = 0;
     private boolean pieceSelected;
+    private boolean promotion = false;
 
     public ChessGUI() throws IOException {
         colorTurn = WHITE;
@@ -68,10 +73,25 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
                 int index = pieces.indexOf(pawn);
                 if (pawn.getColor() == WHITE) {
                     if (yP == 0) {
+                        String[] pieceOptions =
+                                {"Queen", "Rook", "Knight", "Bishop"};
+                        String promoteSelect = (String) JOptionPane.showInputDialog(null, "Promote to:", "Promotion Screen",
+                                JOptionPane.PLAIN_MESSAGE, null, pieceOptions, pieceOptions[1]);
                         pawns.remove(pawn);
                         pieces.remove(pawn);
                         try {
-                            pieces.add(index, new Queen(xP, yP, WHITE));
+                            if (promoteSelect.equals("Queen")) {
+                                pieces.add(index, new Queen(xP, yP, WHITE));
+                            }
+                            if (promoteSelect.equals("Rook")) {
+                                pieces.add(index, new Rook(xP, yP, WHITE));
+                            }
+                            if (promoteSelect.equals("Bishop")) {
+                                pieces.add(index, new Bishop(xP, yP, WHITE));
+                            }
+                            if (promoteSelect.equals("Knight")) {
+                                pieces.add(index, new Knight(xP, yP, WHITE));
+                            }
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
@@ -79,10 +99,26 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
                 }
                 if (pawn.getColor() == BLACK) {
                     if (yP == 525) {
+                        String[] pieceOptions =
+                                {"Queen", "Rook", "Knight", "Bishop"};
+                        String promoteSelect = (String) JOptionPane.showInputDialog(null, "Promote to:", "Promotion Screen",
+                                JOptionPane.PLAIN_MESSAGE, null, pieceOptions, pieceOptions[0]);
+                        promotion = true;
                         pawns.remove(pawn);
                         pieces.remove(pawn);
                         try {
-                            pieces.add(index, new Queen(xP, yP, BLACK));
+                            if (promoteSelect.equals("Queen")) {
+                                pieces.add(index, new Queen(xP, yP, BLACK));
+                            }
+                            if (promoteSelect.equals("Rook")) {
+                                pieces.add(index, new Rook(xP, yP, BLACK));
+                            }
+                            if (promoteSelect.equals("Bishop")) {
+                                pieces.add(index, new Bishop(xP, yP, BLACK));
+                            }
+                            if (promoteSelect.equals("Knight")) {
+                                pieces.add(index, new Knight(xP, yP, BLACK));
+                            }
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
@@ -135,6 +171,7 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
 
             g2.drawImage(pieceImage.getImg(), pieceImage.getX(), pieceImage.getY(), pieceImage.getWidth(), pieceImage.getHeight(), null);
         }
+
         g2.setColor(new Color(255, 0, 0, 128));
         g2.fillRect(xS, yS, 75, 75);
 
@@ -182,8 +219,8 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
                 xS = (int) b.getX();
                 yS = (int) b.getY();
                 if (placePiece()) { // Only change turn if a piece is placed
-                    for(ChessPiece p: pawns){
-                        if(p.color==colorTurn)
+                    for (ChessPiece p : pawns) {
+                        if (p.color == colorTurn)
                             ((Pawn) p).setEnPassantEligible(false);
                     }
                     if (colorTurn == WHITE) {
@@ -233,10 +270,10 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
                 if ((piece.getColor() == WHITE && piece.getY() == 75) || (piece.getColor() == BLACK && piece.getY() == 525)) {
                     ChessPiece left = ChessPiece.getPieceAt(piece.getX() - 75, piece.getY(), pieces);
                     ChessPiece right = ChessPiece.getPieceAt(piece.getX() + 75, piece.getY(), pieces);
-                    if (left!=null&&(left.getClass() == Pawn.class) && (left.getColor() != piece.getColor())) {
+                    if (left != null && (left.getClass() == Pawn.class) && (left.getColor() != piece.getColor())) {
                         ((Pawn) left).setEnPassantEligible(true);
                     }
-                    if (right!=null&&(right.getClass() == Pawn.class) && (right.getColor() != piece.getColor())) {
+                    if (right != null && (right.getClass() == Pawn.class) && (right.getColor() != piece.getColor())) {
                         ((Pawn) right).setEnPassantEligible(true);
                     }
                 }
