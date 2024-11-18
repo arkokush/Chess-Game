@@ -61,7 +61,9 @@ public class King extends ChessPiece {
                 break;
             }
         }
-        pieces.add(index, king);
+        if (index > -1) {
+            pieces.add(index, king);
+        }
         return inCheck;
     }
 

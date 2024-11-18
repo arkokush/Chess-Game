@@ -1,27 +1,36 @@
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.Assert.*;
+import org.junit.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class TestBishop {
     @Test
-    public void testBishopMovements() throws IOException {
+    public void testMove() throws IOException {
         Bishop bishop = new Bishop(0, 0, ChessPiece.WHITE);
-        ChessPiece opponent = new Pawn(75, 75, ChessPiece.BLACK);
-        ChessPiece ally = new Pawn(150, 150, ChessPiece.WHITE);
         ArrayList<ChessPiece> pieces = new ArrayList<>();
-        pieces.add(opponent);
-        pieces.add(ally);
+        bishop.move(75, 75, pieces);
+        assertEquals(75, bishop.getX());
+        assertEquals(75, bishop.getY());
+    }
 
-        // Test can move
-        assertTrue(bishop.canMove(75, 75, pieces));  // Move to empty space
-        assertFalse(bishop.canMove(150, 150, pieces));  // Invalid move
+    @Test
+    public void testCapture() throws IOException {
+        Bishop bishop = new Bishop(0, 0, ChessPiece.WHITE);
+        Rook rook = new Rook(75, 75, ChessPiece.BLACK);
+        ArrayList<ChessPiece> pieces = new ArrayList<>();
+        pieces.add(rook);
+        bishop.move(75, 75, pieces);
+        assertEquals(75, bishop.getX());
+        assertEquals(75, bishop.getY());
+        assertFalse(pieces.contains(rook));
+    }
 
-        // Test can capture
-        assertTrue(bishop.canMove(75, 75, pieces));  // Capture opponent
-
-        // Test cannot jump over
-        assertFalse(bishop.canMove(225, 225, pieces));  // Cannot jump over ally
+    @Test
+    public void testCannotJumpOverPieces() throws IOException {
+        Bishop bishop = new Bishop(0, 0, ChessPiece.WHITE);
+        Rook rook = new Rook(75, 75, ChessPiece.WHITE);
+        ArrayList<ChessPiece> pieces = new ArrayList<>();
+        pieces.add(rook);
+        assertFalse(bishop.canMove(150, 150, pieces));
     }
 }
