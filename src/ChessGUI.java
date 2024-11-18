@@ -13,10 +13,6 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
     public static final int PANEL_HEIGHT = 600;
     public static final int WHITE = 1;
     public static final int BLACK = 2;
-    public static final int QUEEN = 1;
-    public static final int ROOK = 2;
-    public static final int KNIGHT = 3;
-    public static final int BISHOP = 4;
     private final ChessBoard board;
     private final King kingW;
     private final King kingB;
@@ -26,7 +22,6 @@ public class ChessGUI extends JPanel implements KeyListener, MouseListener, Mous
     private int xS = -75, yS = -75;
     private int cursorX = 0, cursorY = 0;
     private boolean pieceSelected;
-    private boolean promotion = false;
 
     public ChessGUI() throws IOException {
         colorTurn = WHITE;
