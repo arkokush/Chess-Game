@@ -1,10 +1,16 @@
 public class ChessCoordinate {
     private final char file;
     private final int rank;
+    private final static int aChar = 'a';
 
     public ChessCoordinate(char file, int rank) {
         this.file = file;
         this.rank = rank;
+    }
+
+    public ChessCoordinate(int x, int y) {
+        this.file = (char) (x/75 + aChar) ;
+        this.rank = 8 - (y/75);
     }
 
     public char getFile() {
@@ -16,7 +22,7 @@ public class ChessCoordinate {
     }
 
     public int getX() {
-        return (8 - (Character.getNumericValue(file) - 9) ) * 75;
+        return (8 - (file - aChar + 1) ) * 75;
     }
 
     public int getY() {
