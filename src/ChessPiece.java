@@ -13,14 +13,13 @@ public class ChessPiece {
     private final BufferedImage whiteImage, blackImage;
     private final int w;
     private final int h;
-    private int x, y;
+    private ChessCoordinate coordinate;
     protected int color;
     protected boolean pickedUp = false;
     protected boolean didMove = false;
 
     public ChessPiece(int x, int y, int w, int h, int color, String whiteImageLocation, String blackImageLocation) throws IOException {
-        this.x = x;
-        this.y = y;
+        this.coordinate = new ChessCoordinate(x,y);
         this.w = w;
         this.h = h;
         this.color = color;
@@ -50,21 +49,21 @@ public class ChessPiece {
         if (target == null) {
             if (this.canMove(x, y, pieces)) {
 
-                this.x = x;
-                this.y = y;
+                this.setX(x);
+                this.setY(y);
                 didMove = true;
             }
             if (this.getClass() == Pawn.class && ((Pawn) this).isEnPassantEligible()) {
-                if ((color == WHITE) && (x == this.x + 75 || x == this.x - 75) && y == this.y - 75) {
+                if ((color == WHITE) && (x == this.getX() + 75 || x == this.getX() - 75) && y == this.getY() - 75) {
                     pieces.remove(getPieceAt(x, y + 75, pieces)); // Remove the captured piece
-                    this.x = x;
-                    this.y = y;
+                    this.setX(x);
+                    this.setY(y);
                     didMove = true;
                 }
-                if ((color == BLACK) && (x == this.x + 75 || x == this.x - 75) && y == this.y + 75) {
+                if ((color == BLACK) && (x == this.getX() + 75 || x == this.getX() - 75) && y == this.getY() + 75) {
                     pieces.remove(getPieceAt(x, y - 75, pieces)); // Remove the captured piece
-                    this.x = x;
-                    this.y = y;
+                    this.setX(x);
+                    this.setY(y);
                     didMove = true;
                 }
 
@@ -72,8 +71,8 @@ public class ChessPiece {
         } else if (target.getColor() != color && canMove(x, y, pieces)) {
 
             pieces.remove(target); // Remove the captured piece
-            this.x = x;
-            this.y = y;
+            this.setX(x);
+            this.setY(y);
             didMove = true;
 
         }
@@ -82,7 +81,7 @@ public class ChessPiece {
     }
 
     public ChessPieceImage draw() {
-        return draw(this.x, this.y);
+        return draw(this.getX(), this.getY());
     }
 
     public ChessPieceImage draw(int x, int y) {
@@ -122,23 +121,23 @@ public class ChessPiece {
 
     public Rectangle getHitbox() {
         return new Rectangle(
-                x, y, 75, 75);
+                getX(), getY(), 75, 75);
     }
 
     public int getX() {
-        return x;
+        return coordinate.getX();
     }
 
     public void setX(int x) {
-        this.x = x;
+        this.coordinate = new ChessCoordinate(x,coordinate.getY());
     }
 
     public int getY() {
-        return y;
+        return coordinate.getY();
     }
 
     public void setY(int y) {
-        this.y = y;
+        this.coordinate = new ChessCoordinate(coordinate.getX(),y);
     }
 
     public BufferedImage getWhiteImage() {

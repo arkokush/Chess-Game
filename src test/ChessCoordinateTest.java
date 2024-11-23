@@ -17,8 +17,8 @@ public class ChessCoordinateTest {
 
     @Test
     public void getX() {
-        assertEquals(525, (new ChessCoordinate('a', 1)).getX());
-        assertEquals(0, (new ChessCoordinate('h', 1)).getX());
+        assertEquals(0, (new ChessCoordinate('a', 1)).getX());
+        assertEquals(525, (new ChessCoordinate('h', 1)).getX());
     }
 
     @Test
@@ -31,5 +31,10 @@ public class ChessCoordinateTest {
     public void testToString() {
         assertEquals("a1", (new ChessCoordinate('a', 1)).toString());
         assertEquals("a1", (new ChessCoordinate(0, 525)).toString());
+        assertEquals("b1", (new ChessCoordinate(75, 525)).toString());
+        assertEquals("h1", (new ChessCoordinate(525, 525)).toString());
+
+        assertEquals("a8", (new ChessCoordinate(0, 0)).toString());
+        assertEquals("a7", (new ChessCoordinate(0, 75)).toString());
     }
 }

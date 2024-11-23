@@ -22,7 +22,7 @@ public class ChessCoordinate {
     }
 
     public int getX() {
-        return (8 - (file - aChar + 1) ) * 75;
+        return (file - aChar) * 75;
     }
 
     public int getY() {
