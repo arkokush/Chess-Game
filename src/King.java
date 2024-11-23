@@ -19,19 +19,19 @@ public class King extends ChessPiece {
     @Override
     public void move(int a, int b, ArrayList<ChessPiece> pieces) {
         ChessPiece target = getPieceAt(a, b, pieces);
-        if (b == y && (a == x + 150 || a == x - 150) && !didMove) {
+        if (b == getY() && (a == getX() + 150 || a == getX() - 150) && !didMove) {
             castle(a, b, pieces);
         } else if (target == null) {
             if (this.canMove(a, b, pieces)) {
 
-                this.x = a;
-                this.y = b;
+                this.setX(a);
+                this.setY(b);
                 didMove = true;
             }
         } else if (target.getColor() != color && canMove(a, b, pieces)) {
             pieces.remove(target); // Remove the captured piece
-            this.x = a;
-            this.y = b;
+            this.setX(a);
+            this.setY(b);
             didMove = true;
         }
 
@@ -68,31 +68,31 @@ public class King extends ChessPiece {
     }
 
     public boolean inCheck(ArrayList<ChessPiece> pieces) {
-        return inCheck(this.x, this.y, pieces);
+        return inCheck(this.getX(), this.getY(), pieces);
     }
 
     public void castle(int a, int b, ArrayList<ChessPiece> pieces) {
-        if (a == x + 150) {
+        if (a == getX() + 150) {
             Rook rook = (Rook) getPieceAt(a + 75, b, pieces);
-            if (!(this.inCheck(pieces) || this.inCheck(x + 75, y, pieces) || this.inCheck(x + 150, y, pieces))) {
+            if (!(this.inCheck(pieces) || this.inCheck(getX() + 75, getY(), pieces) || this.inCheck(getX() + 150, getY(), pieces))) {
                 if (rook != null && rook.getColor() == color && !rook.isDidMove()) {
-                    this.x = a;
-                    this.y = b;
-                    rook.setX(x - 75);
+                    this.setX(a);
+                    this.setY(b);
+                    rook.setX(getX() - 75);
                     didMove = true;
                     rook.setDidMove(true);
                 }
             }
 
         }
-        if (a == x - 150) {
-            if (!(this.inCheck(pieces) || this.inCheck(x - 75, y, pieces) || this.inCheck(x - 150, y, pieces))) {
+        if (a == getX() - 150) {
+            if (!(this.inCheck(pieces) || this.inCheck(getX() - 75, getY(), pieces) || this.inCheck(getX() - 150, getY(), pieces))) {
 
                 Rook rook = (Rook) getPieceAt(a - 150, b, pieces);
                 if (rook != null && rook.getColor() == color && !rook.isDidMove()) {
-                    this.x = a;
-                    this.y = b;
-                    rook.setX(x + 75);
+                    this.setX(a);
+                    this.setY(b);
+                    rook.setX(getX() + 75);
                     didMove = true;
                     rook.setDidMove(true);
                 }
@@ -103,7 +103,7 @@ public class King extends ChessPiece {
     @Override
     public boolean canMove(int a, int b, ArrayList<ChessPiece> pieces) {
 
-        boolean canMove = (Math.abs(x - a) <= 75) && (Math.abs(y - b) <= 75);
+        boolean canMove = (Math.abs(getX() - a) <= 75) && (Math.abs(getY() - b) <= 75);
         int index = -1;
         ChessPiece piece = getPieceAt(a, b, pieces);
         if (piece != null && piece.getColor() != color) {

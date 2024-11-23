@@ -26,10 +26,10 @@ private boolean enPassantEligible = false;
         boolean canMove = false;
         switch (color) {
             case BLACK:
-                canMove = b == y + 75 && (a == x + 75 || a == x - 75);
+                canMove = b == getY() + 75 && (a == getX() + 75 || a == getX() - 75);
                 break;
             case WHITE:
-                canMove = b == y - 75 && (a == x + 75 || a == x - 75);
+                canMove = b == getY() - 75 && (a == getX() + 75 || a == getX() - 75);
                 break;
         }
         return canMove;
@@ -44,11 +44,11 @@ private boolean enPassantEligible = false;
             switch (color) {
                 case BLACK:
                     if (didMove) {
-                        canMove = (a == x && b == y + 75);
+                        canMove = (a == getX() && b == getY() + 75);
                     } else {
-                        canMove = (b == y + 150 || b == y + 75) && a == x;
+                        canMove = (b ==  getY()+ 150 || b == getY() + 75) && a == getX();
                         for (ChessPiece piece : pieces) {
-                            if (piece.getY() == y + 75 && piece.getX() == x) {
+                            if (piece.getY() ==  getY()+ 75 && piece.getX() == getX()) {
                                 canMove = false;
                                 break;
                             }
@@ -57,11 +57,11 @@ private boolean enPassantEligible = false;
                     break;
                 case WHITE:
                     if (didMove) {
-                        canMove = (b == y - 75 && a == x);
+                        canMove = (b ==  getY()- 75 && a == getX());
                     } else {
-                        canMove = (b == y - 150 || b == y - 75) && a == x;
+                        canMove = (b ==  getY()- 150 || b ==  getY()- 75) && a == getX();
                         for (ChessPiece piece : pieces) {
-                            if (piece.getY() == y - 75 && piece.getX() == x) {
+                            if (piece.getY() ==  getY()- 75 && piece.getX() == getX()) {
                                 canMove = false;
                                 break;
                             }

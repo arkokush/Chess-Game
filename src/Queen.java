@@ -29,8 +29,8 @@ public class Queen extends ChessPiece {
         boolean canMove = false;
 
         for (int i = -8; i <= 8; i++)
-            if ((a == x + 75 * i && b == y + 75 * i) || (a == x + 75 * i * -1 && b == y + 75 * i) || (b == y)
-                    || (a == x)) {
+            if ((a == getY() + 75 * i && b == getY() + 75 * i) || (a == getY() + 75 * i * -1 && b == getY() + 75 * i) || (b == getY())
+                    || (a == getY())) {
                 canMove = true;
                 break;
             }
@@ -44,51 +44,51 @@ public class Queen extends ChessPiece {
 
     public boolean pieceInWay(int a, int b, ArrayList<ChessPiece> pieces) {
         for (ChessPiece piece : pieces) {
-            if (a > x && b == y) {
-                for (int i = 1; i * 75 + x < a; i++) {
-                    if (piece.getX() == i * 75 + x && piece.getY() == y) {
+            if (a > getX() && b == getY()) {
+                for (int i = 1; i * 75 + getX() < a; i++) {
+                    if (piece.getX() == i * 75 + getX() && piece.getY() == getY()) {
                         return true;
                     }
                 }
-            } else if (a < x && b == y) {
-                for (int i = 1; x - i * 75 > a; i++) {
-                    if (piece.getX() == x - i * 75 && piece.getY() == y) {
+            } else if (a < getX() && b == getY()) {
+                for (int i = 1; getX() - i * 75 > a; i++) {
+                    if (piece.getX() == getX() - i * 75 && piece.getY() == getY()) {
                         return true;
                     }
                 }
-            } else if (b > y && a == x) {
-                for (int i = 1; i * 75 + y < b; i++) {
-                    if (piece.getY() == i * 75 + y && piece.getX() == x) {
+            } else if (b > getY() && a == getX()) {
+                for (int i = 1; i * 75 + getY() < b; i++) {
+                    if (piece.getY() == i * 75 + getY() && piece.getX() == getX()) {
                         return true;
                     }
                 }
-            } else if (b < y && a == x) {
-                for (int i = 1; y - i * 75 > b; i++) {
-                    if (piece.getY() == y - i * 75 && piece.getX() == x) {
+            } else if (b < getY() && a == getX()) {
+                for (int i = 1; getY() - i * 75 > b; i++) {
+                    if (piece.getY() == getY() - i * 75 && piece.getX() == getX()) {
                         return true;
                     }
                 }
-            } else if (a > x && b < y) {// Top right
-                for (int i = 1; i * 75 + x < a; i++) {
-                    if (piece.getX() == i * 75 + x && piece.getY() == y - i * 75) {
+            } else if (a > getX() && b < getY()) {// Top right
+                for (int i = 1; i * 75 + getX() < a; i++) {
+                    if (piece.getX() == i * 75 + getX() && piece.getY() == getY() - i * 75) {
                         return true;
                     }
                 }
-            } else if (a > x && b > y) {// Bottom Right
-                for (int i = 1; i * 75 + x < a; i++) {
-                    if (piece.getX() == i * 75 + x && piece.getY() == y + i * 75) {
+            } else if (a > getX() && b > getY()) {// Bottom Right
+                for (int i = 1; i * 75 + getX() < a; i++) {
+                    if (piece.getX() == i * 75 + getX() && piece.getY() == getY() + i * 75) {
                         return true;
                     }
                 }
-            } else if (a < x && b < y) {// Top Left
-                for (int i = 1; x - i * 75 > a; i++) {
-                    if (piece.getX() == x - i * 75 && piece.getY() == y - i * 75) {
+            } else if (a < getX() && b < getY()) {// Top Left
+                for (int i = 1; getX() - i * 75 > a; i++) {
+                    if (piece.getX() == getX() - i * 75 && piece.getY() == getY() - i * 75) {
                         return true;
                     }
                 }
-            } else if (a < x && b > y) {// Bottom Left
-                for (int i = 1; x - i * 75 > a; i++) {
-                    if (piece.getX() == x - i * 75 && piece.getY() == y + i * 75) {
+            } else if (a < getX() && b > getY()) {// Bottom Left
+                for (int i = 1; getX() - i * 75 > a; i++) {
+                    if (piece.getX() == getX() - i * 75 && piece.getY() == getY() + i * 75) {
                         return true;
                     }
                 }

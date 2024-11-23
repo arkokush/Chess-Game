@@ -28,33 +28,33 @@ public class Rook extends ChessPiece {
 
     @Override
     public boolean canMove(int a, int b, ArrayList<ChessPiece> pieces) {
-       return ((b == y || a == x)&&!pieceInWay(a,b,pieces));
+       return ((b == getY() || a == getX())&&!pieceInWay(a,b,pieces));
     }
 
 
     public boolean pieceInWay(int a, int b, ArrayList<ChessPiece> pieces) {
         for (ChessPiece piece : pieces) {
-            if (a > x && b == y) {
-                for (int i = 1; i * 75 + x < a; i++) {
-                    if (piece.getX() == i * 75 + x && piece.getY() == y) {
+            if (a > getX() && b == getY()) {
+                for (int i = 1; i * 75 + getX() < a; i++) {
+                    if (piece.getX() == i * 75 + getX() && piece.getY() == getY()) {
                         return true;
                     }
                 }
-            } else if (a < x && b == y) {
-                for (int i = 1; x - i * 75 > a; i++) {
-                    if (piece.getX() == x - i * 75 && piece.getY() == y) {
+            } else if (a < getX() && b == getY()) {
+                for (int i = 1; getX() - i * 75 > a; i++) {
+                    if (piece.getX() == getX() - i * 75 && piece.getY() == getY()) {
                         return true;
                     }
                 }
-            } else if (b > y && a == x) {
-                for (int i = 1; i * 75 + y < b; i++) {
-                    if (piece.getY() == i * 75 + y && piece.getX() == x) {
+            } else if (b > getY() && a == getX()) {
+                for (int i = 1; i * 75 + getY() < b; i++) {
+                    if (piece.getY() == i * 75 + getY() && piece.getX() == getX()) {
                         return true;
                     }
                 }
-            } else if (b < y && a == x) {
-                for (int i = 1; y - i * 75 > b; i++) {
-                    if (piece.getY() == y - i * 75 && piece.getX() == x) {
+            } else if (b < getY() && a == getX()) {
+                for (int i = 1; getY() - i * 75 > b; i++) {
+                    if (piece.getY() == getY() - i * 75 && piece.getX() == getX()) {
                         return true;
                     }
                 }

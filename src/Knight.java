@@ -30,8 +30,8 @@ public class Knight extends ChessPiece
     @Override
     public boolean canMove(int a, int b, ArrayList<ChessPiece> pieces)
     {
-        return (a == x + 150 && (b == y - 75 || b == y + 75)) || (a == x - 150 && (b == y - 75 || b == y + 75))
-                || (b == y + 150 && (a == x - 75 || a == x + 75)) || (b == y - 150 && (a == x - 75 || a == x + 75));
+        return (a == getX() + 150 && (b == getY() - 75 || b == getY() + 75)) || (a == getX() - 150 && (b == getY() - 75 || b == getY() + 75))
+                || (b == getY() + 150 && (a == getX() - 75 || a == getX() + 75)) || (b == getY() - 150 && (a == getX() - 75 || a == getX() + 75));
 
     }
 

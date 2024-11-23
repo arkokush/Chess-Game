@@ -13,7 +13,7 @@ public class ChessPiece {
     private final BufferedImage whiteImage, blackImage;
     private final int w;
     private final int h;
-    protected int x, y;
+    private int x, y;
     protected int color;
     protected boolean pickedUp = false;
     protected boolean didMove = false;
