@@ -3,7 +3,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TestPawn {
+public class PawnTest {
     @Test
     public void testMove() throws IOException {
         Pawn pawn = new Pawn(0, 0, ChessPiece.WHITE);

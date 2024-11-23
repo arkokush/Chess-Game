@@ -3,7 +3,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TestQueen {
+public class QueenTest {
     @Test
     public void testMove() throws IOException {
         Queen queen = new Queen(0, 0, ChessPiece.WHITE);

@@ -3,7 +3,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TestKing {
+public class KingTest {
     @Test
     public void testMove() throws IOException {
         King king = new King(0, 0, ChessPiece.WHITE);
@@ -27,7 +27,7 @@ public class TestKing {
     @Test
     public void testCannotMoveIntoCheck() throws IOException {
         King king = new King(0, 0, ChessPiece.WHITE);
-        Rook rook = new Rook(75, 75, ChessPiece.BLACK);
+        Rook rook = new Rook(0, 75, ChessPiece.BLACK);
         ArrayList<ChessPiece> pieces = new ArrayList<>();
         pieces.add(rook);
         assertFalse(king.canMove(75, 75, pieces));

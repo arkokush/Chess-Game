@@ -3,7 +3,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TestBishop {
+public class BishopTest {
     @Test
     public void testMove() throws IOException {
         Bishop bishop = new Bishop(0, 0, ChessPiece.WHITE);

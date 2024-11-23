@@ -3,7 +3,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TestRook {
+public class RookTest {
     @Test
     public void testMove() throws IOException {
         Rook rook = new Rook(0, 0, ChessPiece.WHITE);
