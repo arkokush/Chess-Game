@@ -15,6 +15,14 @@ public class ChessCoordinate {
         return rank;
     }
 
+    public int getX() {
+        return (8 - (Character.getNumericValue(file) - 9) ) * 75;
+    }
+
+    public int getY() {
+        return (8 - rank) * 75;
+    }
+
     public String toString() {
         return "" + file + rank;
     }

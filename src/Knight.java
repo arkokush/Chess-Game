@@ -16,17 +16,6 @@ public class Knight extends ChessPiece
                 "/knightW.png",
                 "/knightB.png" );
     }
-    public Knight(int x, int y,int w, int h, int color) throws IOException {
-        super(x,
-                y,
-                w,
-                h,
-                color,
-                "/knightW.png",
-                "/knightB.png" );
-    }
-
-   
     @Override
     public boolean canMove(int a, int b, ArrayList<ChessPiece> pieces)
     {

@@ -15,15 +15,7 @@ public class Bishop extends ChessPiece {
                 "/bishopW.png",
                 "/bishopB.png");
     }
-    public Bishop(int x, int y,int w, int h, int color) throws IOException {
-        super(x,
-                y,
-                w,
-                h,
-                color,
-                "/bishopW.png",
-                "/bishopB.png");
-    }
+
     @Override
     public boolean canMove(int a, int b, ArrayList<ChessPiece> pieces) {
         boolean canMove = false;

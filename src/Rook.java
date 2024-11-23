@@ -15,16 +15,6 @@ public class Rook extends ChessPiece {
                 "/rookW.png",
                 "/rookB.png");
     }
-    public Rook(int x, int y,int w, int h, int color) throws IOException {
-        super(x,
-                y,
-                w,
-                h,
-                color,
-                "/rookW.png",
-                "/rookB.png");
-    }
-
 
     @Override
     public boolean canMove(int a, int b, ArrayList<ChessPiece> pieces) {
